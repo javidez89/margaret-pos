@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="507.27" height="98" preserveAspectRatio="xMinYMin meet" viewBox="0 0 507 98" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="507.27" height="98"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-98)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="44" width="99" height="36" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="27.758642578125" y="59.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,118) scale(1,-1)">Solicitado</text>
+			<rect x="136" y="44" width="99" height="36" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="159.4619140625" y="59.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,118) scale(1,-1)">Transmitido</text>
+			<rect x="272" y="44" width="99" height="36" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="302.5379638671875" y="59.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,118) scale(1,-1)">Validado</text>
+			<rect x="408" y="44" width="99" height="36" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="435.0010498046875" y="59.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,118) scale(1,-1)">Entregado</text>
+			<path d="M 99,62 L 136,62 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="136 62, 130 59, 130 65" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<path d="M 235,62 L 272,62 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="272 62, 266 59, 266 65" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<path d="M 371,62 L 408,62 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="408 62, 402 59, 402 65" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="0" y="25" style="font-family: Arial; font-size: 8px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,50) scale(1,-1)">Ramas de control: rechazado, resultado incierto y contingencia documentada.</text>
+			<text x="0" y="10" style="font-family: Arial; font-size: 8px;fill: rgb(32%,41%,38%); stroke:none;" transform="translate(0,20) scale(1,-1)">Estados propuestos del adaptador; un voucher interno no equivale a emisión fiscal.</text>
+		</g>
+	</g>
+</svg>

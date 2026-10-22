@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="507.27" height="93" preserveAspectRatio="xMinYMin meet" viewBox="0 0 507 93" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="507.27" height="93"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-93)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0.0" y="39" width="88.0" height="42" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(96%,95%,92%); fill-rule: evenodd;"/>
+			<text x="17.1998779296875" y="57.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,114) scale(1,-1)">Programado</text>
+			<path d="M 88,60 L 104.5,60 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="104.5 60, 98.5 57, 98.5 63" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<rect x="104.5" y="39" width="88.0" height="42" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="127.016357421875" y="57.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,114) scale(1,-1)">Aprobado</text>
+			<path d="M 192.5,60 L 209,60 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="209 60, 203 57, 203 63" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<rect x="209.0" y="39" width="88.0" height="42" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="237.075" y="57.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,114) scale(1,-1)">Abierto</text>
+			<path d="M 297,60 L 313.5,60 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="313.5 60, 307.5 57, 307.5 63" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<rect x="313.5" y="39" width="88.0" height="42" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(96%,95%,92%); fill-rule: evenodd;"/>
+			<text x="321.5954345703125" y="57.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,114) scale(1,-1)">Cierre pendiente</text>
+			<path d="M 401.5,60 L 418,60 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="418 60, 412 57, 412 63" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<rect x="418.0" y="39" width="88.0" height="42" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="444.5531494140625" y="57.0" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,114) scale(1,-1)">Cerrado</text>
+			<text x="0" y="20" style="font-family: Arial; font-size: 8px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,40) scale(1,-1)">Cambio de configuración: invalida la aprobación y bloquea ventas hasta una nueva aprobación.</text>
+			<text x="0" y="6" style="font-family: Arial; font-size: 8px;fill: rgb(32%,41%,38%); stroke:none;" transform="translate(0,12) scale(1,-1)">Rechazo de arqueo: vuelve a Abierto con la aprobación vigente del equipo.</text>
+		</g>
+	</g>
+</svg>

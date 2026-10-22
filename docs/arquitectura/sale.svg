@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="507.27" height="169" preserveAspectRatio="xMinYMin meet" viewBox="0 0 507 169" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="507.27" height="169"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-169)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="2" y="137" width="98" height="27" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="24.197656249999998" y="147.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,295) scale(1,-1)">Cajero / web</text>
+			<path d="M 51,10 L 51,132 Z" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<rect x="136" y="137" width="98" height="27" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="161.2302490234375" y="147.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,295) scale(1,-1)">API central</text>
+			<path d="M 185,10 L 185,132 Z" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<rect x="270" y="137" width="98" height="27" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="292.7064208984375" y="147.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,295) scale(1,-1)">PostgreSQL</text>
+			<path d="M 319,10 L 319,132 Z" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<rect x="405" y="137" width="98" height="27" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="430.4857421875" y="147.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,295) scale(1,-1)">Trabajador</text>
+			<path d="M 454,10 L 454,132 Z" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 1; stroke-dasharray: 3, 3;"/>
+			<path d="M 51,119 L 185,119 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="185 119, 179 116, 179 122" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="64" y="124" style="font-family: Arial; font-size: 7.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,248) scale(1,-1)">Confirmar + clave única</text>
+			<path d="M 185,91 L 319,91 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="319 91, 313 88, 313 94" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="194" y="97" style="font-family: Arial; font-size: 7.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,194) scale(1,-1)">Validar y guardar todo</text>
+			<path d="M 319,67 L 185,67 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="185 67, 191 64, 191 70" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="199" y="73" style="font-family: Arial; font-size: 7.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,146) scale(1,-1)">Confirmación transaccional</text>
+			<path d="M 185,43 L 51,43 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="51 43, 57 40, 57 46" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="64" y="49" style="font-family: Arial; font-size: 7.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,98) scale(1,-1)">Venta guardada + recibo</text>
+			<path d="M 319,19 L 454,19 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="454 19, 448 16, 448 22" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="333" y="25" style="font-family: Arial; font-size: 7.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,50) scale(1,-1)">Evento para emisión</text>
+		</g>
+	</g>
+</svg>

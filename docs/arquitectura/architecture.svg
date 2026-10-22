@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="507.27" height="207" preserveAspectRatio="xMinYMin meet" viewBox="0 0 507 207" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="507.27" height="207"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-207)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="144" width="133" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="21.993090820312496" y="173.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,347) scale(1,-1)">Terminales Margaret</text>
+			<text x="20.51533203124999" y="160.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,321) scale(1,-1)">Cajeros y administración</text>
+			<rect x="181" y="144" width="145" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="229.7302490234375" y="173.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,347) scale(1,-1)">API central</text>
+			<text x="205.41328124999998" y="160.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,321) scale(1,-1)">Sesión, reglas y permisos</text>
+			<rect x="374" y="144" width="133" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,92%); fill-rule: evenodd;"/>
+			<text x="414.2064208984375" y="173.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,347) scale(1,-1)">PostgreSQL</text>
+			<text x="399.17880859375" y="160.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,321) scale(1,-1)">Datos transaccionales</text>
+			<path d="M 133,170 L 181,170 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="181 170, 175 167, 175 173" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<path d="M 326,170 L 374,170 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="374 170, 368 167, 368 173" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="137" y="180" style="font-family: Arial; font-size: 7.2px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,360) scale(1,-1)">HTTPS</text>
+			<text x="335" y="180" style="font-family: Arial; font-size: 7.2px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,360) scale(1,-1)">SQL</text>
+			<rect x="181" y="57" width="145" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(96%,95%,92%); fill-rule: evenodd;"/>
+			<text x="209.6373779296875" y="86.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,173) scale(1,-1)">Trabajador + outbox</text>
+			<text x="211.4794921875" y="73.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,147) scale(1,-1)">Fiscal, entrega, copias</text>
+			<path d="M 440,144 L 440,126 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 440,126 L 253,126 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 253,126 L 253,109 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="253 109, 250 115, 256 115" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="283" y="114" style="font-family: Arial; font-size: 7.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,228) scale(1,-1)">Outbox confirmada</text>
+			<rect x="0" y="57" width="133" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(96%,95%,92%); fill-rule: evenodd;"/>
+			<text x="26.034326171875" y="86.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,173) scale(1,-1)">Servicios externos</text>
+			<text x="18.64707031249999" y="73.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,147) scale(1,-1)">DIAN / proveedor / correo</text>
+			<rect x="374" y="57" width="133" height="52" rx="7" ry="7" style="stroke: rgb(83%,87%,84%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(96%,95%,92%); fill-rule: evenodd;"/>
+			<text x="400.8008056640625" y="86.5" style="font-family: Arial-Bold; font-size: 9.1px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,173) scale(1,-1)">Archivos privados</text>
+			<text x="400.1119140625" y="73.5" style="font-family: Arial; font-size: 8.4px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,147) scale(1,-1)">Vouchers y respaldos</text>
+			<path d="M 181,83 L 133,83 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="133 83, 139 80, 139 86" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<path d="M 326,83 L 374,83 Z" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<polygon points="374 83, 368 80, 368 86" style="stroke: rgb(7%,24%,20%); stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,24%,20%); fill-rule: evenodd;"/>
+			<text x="0" y="24" style="font-family: Arial; font-size: 8px;fill: rgb(7%,17%,15%); stroke:none;" transform="translate(0,48) scale(1,-1)">Servidor y servicios privados: el navegador nunca accede directamente a la base de datos.</text>
+			<text x="0" y="9" style="font-family: Arial; font-size: 8px;fill: rgb(32%,41%,38%); stroke:none;" transform="translate(0,18) scale(1,-1)">Un proyecto modular; API y trabajador desplegados como procesos distintos.</text>
+		</g>
+	</g>
+</svg>

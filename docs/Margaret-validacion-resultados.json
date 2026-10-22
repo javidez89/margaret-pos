@@ -1,0 +1,108 @@
+{
+  "checks": [
+    {
+      "label": "Totales de referencias",
+      "ok": true,
+      "note": "Esperado 1349 · Actual 1349"
+    },
+    {
+      "label": "Totales de ventas",
+      "ok": true,
+      "note": "Esperado 452 · Actual 452"
+    },
+    {
+      "label": "Totales de compras",
+      "ok": true,
+      "note": "Esperado 1427 · Actual 1427"
+    },
+    {
+      "label": "Totales de gastos",
+      "ok": true,
+      "note": "Esperado 48 · Actual 48"
+    },
+    {
+      "label": "Totales de turnos",
+      "ok": true,
+      "note": "Esperado 56 · Actual 56"
+    },
+    {
+      "label": "Totales de ventas en COP",
+      "ok": true,
+      "note": "Esperado 74964400 · Actual 74964400"
+    },
+    {
+      "label": "Totales de costo vendido",
+      "ok": true,
+      "note": "Esperado 59958240 · Actual 59958240"
+    },
+    {
+      "label": "Totales de gastos en COP",
+      "ok": true,
+      "note": "Esperado 772000 · Actual 772000"
+    },
+    {
+      "label": "Totales de inversión",
+      "ok": true,
+      "note": "Esperado 992444650 · Actual 992444650"
+    },
+    {
+      "label": "Códigos internos únicos",
+      "ok": true,
+      "note": "1399 códigos; no son EAN originales"
+    },
+    {
+      "label": "Referencias sin colisiones",
+      "ok": true,
+      "note": "Las referencias existentes conservan sus identificadores"
+    },
+    {
+      "label": "Entradas + devoluciones − ventas = existencias",
+      "ok": true,
+      "note": "0 referencias con diferencia"
+    },
+    {
+      "label": "Arqueos y aprobación independiente",
+      "ok": true,
+      "note": "0 cierres inconsistentes"
+    },
+    {
+      "label": "Voucher en cada venta",
+      "ok": true,
+      "note": "452 comprobantes"
+    },
+    {
+      "label": "Ventas con existencias y fecha",
+      "ok": true,
+      "note": "452 ventas auditadas"
+    },
+    {
+      "label": "Dos cajeros por turno",
+      "ok": true,
+      "note": "APRUEBA · BENSAYO"
+    },
+    {
+      "label": "Cuentas completas y primer ingreso",
+      "ok": true,
+      "note": "Identidad y contacto ficticios; contraseña temporal igual a la cédula"
+    }
+  ],
+  "failures": [],
+  "stats": {
+    "products": 1349,
+    "salesCount": 452,
+    "purchaseCount": 1427,
+    "expenseCount": 48,
+    "shifts": 56,
+    "sales": 74964400,
+    "cost": 59958240,
+    "expenses": 772000,
+    "investment": 992444650,
+    "gross": 15006160,
+    "net": 14234160
+  },
+  "storageBytesUTF8": 2167343,
+  "storageBytesUTF16": 4316834,
+  "idempotent": true,
+  "reportFilters": true,
+  "stockReplay": true
+}
