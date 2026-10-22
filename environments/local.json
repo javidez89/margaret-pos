@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "name": "local",
+  "label": "LOCAL · PRUEBAS",
+  "applicationMode": "demo",
+  "demoEnabled": true,
+  "seedTestData": true,
+  "storageNamespace": "margaret-demo-v1",
+  "server": { "enabled": true, "host": "127.0.0.1", "port": 4173 }
+}
