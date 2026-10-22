@@ -1,15 +1,20 @@
-name: Validar demo
+name: Validar calidad
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      APP_ENV: local
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
@@ -18,5 +23,7 @@ jobs:
           package-manager-cache: false
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Mostrar estado real de preparación de producción
+        run: node scripts/production-readiness.mjs --report
       - name: Verificar que el demo coincida con su fuente
         run: git diff --exit-code -- demo/index.html

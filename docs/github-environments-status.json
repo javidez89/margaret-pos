@@ -1,0 +1,32 @@
+{
+  "account": "javidez89",
+  "plan": "no disponible",
+  "develop": {
+    "ok": true,
+    "status": 201
+  },
+  "environments": {
+    "local": {
+      "ok": true,
+      "status": 200,
+      "branch_policy_ok": true
+    },
+    "production": {
+      "ok": true,
+      "status": 200,
+      "branch_policy_ok": true
+    }
+  },
+  "branch_protection": {
+    "main": {
+      "ok": false,
+      "status": 403,
+      "message": "Upgrade to GitHub Pro or make this repository public to enable this feature."
+    },
+    "develop": {
+      "ok": false,
+      "status": 403,
+      "message": "Upgrade to GitHub Pro or make this repository public to enable this feature."
+    }
+  }
+}

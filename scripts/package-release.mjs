@@ -1,0 +1,27 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { root, projectVersion, validateReleaseTag, loadEnvironment } from './environment.mjs';
+
+const version = await projectVersion();
+const tag = validateReleaseTag(process.argv[2], version);
+const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
+if (process.env.GITHUB_ACTIONS === 'true' ? process.env.GITHUB_REF !== 'refs/heads/main' : git('branch', '--show-current') !== 'main') throw new Error('Las versiones se preparan únicamente desde main.');
+if (git('status', '--porcelain', '--untracked-files=no')) throw new Error('Hay cambios sin confirmar. No se puede versionar una copia diferente del commit.');
+const commit = git('rev-parse', 'HEAD');
+const timestamp = git('show', '-s', '--format=%cI', 'HEAD');
+const config = await loadEnvironment('production');
+if (config.operationalReady || config.deploymentEnabled) throw new Error('Este empaquetador solo prepara versiones de prueba; no implementa despliegues operativos.');
+const dir = resolve(root, '.artifacts/releases', tag);
+await mkdir(dir, { recursive: true });
+const filename = `margaret-${tag}-demo.zip`;
+execFileSync('git', ['archive', '--format=zip', `--prefix=margaret-${tag}/`, `--output=${resolve(dir, filename)}`, commit], { cwd: root });
+const metadata = { schemaVersion: 1, version, tag, commit, commitDate: timestamp, distribution: 'demo-for-validation', productionDeployment: false, operationalReady: false, pending: config.pending };
+await writeFile(resolve(dir, 'release-metadata.json'), JSON.stringify(metadata, null, 2) + '\n');
+const files = [filename, 'release-metadata.json'];
+const sums = [];
+for (const file of files) sums.push(`${createHash('sha256').update(await readFile(resolve(dir, file))).digest('hex')}  ${file}`);
+await writeFile(resolve(dir, 'SHA256SUMS'), sums.join('\n') + '\n');
+await writeFile(resolve(dir, 'release-notes.md'), `# Margaret ${tag}\n\nVersión preliminar para pruebas. No despliega ni habilita un sistema de ventas en producción.\n\nCommit: ${commit}\n\nIncluye demo local, arquitectura, guías y pruebas. El archivo SHA256SUMS permite comprobar los archivos descargados. Producción queda pendiente de alojamiento, dominio y servicio central.\n`);
+console.log(`Versión de pruebas preparada: .artifacts/releases/${tag}`);

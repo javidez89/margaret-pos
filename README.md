@@ -43,11 +43,15 @@ docs/                       Guías, arquitectura y evidencia de validación
 
 ## Compilar y validar
 
+El desarrollo y las pruebas pertenecen al ambiente **local** y a la rama `develop`. `main` conserva versiones estables; el ambiente `production` está reservado en GitHub, sin sitio o backend operativo. Consulta [ambientes y versionamiento](docs/AMBIENTES-Y-VERSIONAMIENTO.md).
+
 ```sh
 npm ci --ignore-scripts
 npm run build
 npm test
 ```
+
+El comando `npm run dev` lee `.env.local` cuando existe. Las configuraciones de ejemplo están en `environments/`; no contienen secretos. El flujo manual **Preparar versión** genera un borrador de versión preliminar desde main con archivos verificables, sin realizar un despliegue externo.
 
 La compilación usa la plantilla y los dos archivos de marca para generar el HTML autónomo. **Edita la plantilla y vuelve a compilar**, en lugar de modificar únicamente el archivo generado.
 

@@ -2,9 +2,14 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { loadEnvironment, requireLocalDemo, projectVersion } from './environment.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const environment = await loadEnvironment();
+requireLocalDemo(environment);
+const version = await projectVersion();
 let source = await readFile(resolve(root, 'src/index.template.html'), 'utf8');
+source = source.replaceAll('__APP_VERSION__', version).replaceAll('__APP_ENV_LABEL__', environment.label);
 for (const [token, path] of [['__LOGO__', 'logo.png'], ['__ICON__', 'icon.png']]) {
   if (!source.includes(token)) throw new Error(`Falta el marcador ${token}`);
   const bytes = await readFile(resolve(root, 'assets/brand', path));

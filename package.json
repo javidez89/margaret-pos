@@ -1,6 +1,6 @@
 {
   "name": "margaret-pos",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Demo de administración y punto de venta Margaret",
   "license": "UNLICENSED",
@@ -11,6 +11,10 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node scripts/test.mjs",
-    "start": "node scripts/serve.mjs"
+    "start": "npm run dev",
+    "dev": "node --env-file-if-exists=.env.local scripts/serve.mjs",
+    "check:version": "node scripts/check-version.mjs",
+    "check:production": "node scripts/production-readiness.mjs",
+    "prepare:release": "node scripts/package-release.mjs"
   }
 }
