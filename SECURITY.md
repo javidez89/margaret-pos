@@ -2,6 +2,8 @@
 
 Este repositorio contiene un prototipo local, no un sistema apto para almacenar información real del negocio en producción.
 
+El prototipo tiene vistas públicas de pruebas y estable. Consulta [los controles vigentes](docs/GOBIERNO-DESARROLLO.md). La separación de almacenamiento de esas vistas no sustituye bases, dominios y autorización de servidor separados.
+
 - Los permisos y accesos del demo se ejecutan en el navegador. Los controles reales deben validarse en un servidor central.
 - Las claves `1234` y el uso de cédula como contraseña temporal son requisitos de prueba; para producción se requiere acordar una activación segura y retirar cuentas por defecto.
 - No versionar respaldos operativos, documentos personales, secretos, certificados ni credenciales. `.gitignore` excluye respaldos y archivos habituales de secretos, pero cada cambio debe revisarse antes de publicarse.

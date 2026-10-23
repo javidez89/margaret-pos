@@ -1,0 +1,74 @@
+{
+  "repository": "https://github.com/javidez89/margaret-pos",
+  "visibility": "public",
+  "branches": {
+    "main": {
+      "checks": [
+        "validate",
+        "security",
+        "qa-browser"
+      ],
+      "strict": true,
+      "enforce_admins": true,
+      "required_pr": true,
+      "required_approvals": 0,
+      "allow_force_pushes": false,
+      "allow_deletions": false
+    },
+    "develop": {
+      "checks": [
+        "validate",
+        "security",
+        "qa-browser"
+      ],
+      "strict": true,
+      "enforce_admins": true,
+      "required_pr": true,
+      "required_approvals": 0,
+      "allow_force_pushes": false,
+      "allow_deletions": false
+    }
+  },
+  "environments": {
+    "testing": {
+      "branches": [
+        "develop"
+      ],
+      "required_reviewers": [],
+      "prevent_self_review": false
+    },
+    "production": {
+      "branches": [
+        "main"
+      ],
+      "required_reviewers": [
+        "javidez89"
+      ],
+      "prevent_self_review": false
+    }
+  },
+  "security_and_analysis": {
+    "secret_scanning": {
+      "status": "enabled"
+    },
+    "secret_scanning_push_protection": {
+      "status": "enabled"
+    },
+    "dependabot_security_updates": {
+      "status": "enabled"
+    },
+    "secret_scanning_non_provider_patterns": {
+      "status": "disabled"
+    },
+    "secret_scanning_validity_checks": {
+      "status": "disabled"
+    }
+  },
+  "tag_rulesets": [
+    {
+      "name": "Etiquetas de versiones sin sobrescritura",
+      "target": "tag",
+      "enforcement": "active"
+    }
+  ]
+}

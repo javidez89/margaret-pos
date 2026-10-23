@@ -1,4 +1,4 @@
-name: Validar calidad
+name: Calidad obligatoria
 on:
   push:
     branches: [main, develop]
@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: validate-${{ github.workflow }}-${{ github.ref }}
+  group: quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
@@ -17,13 +17,57 @@ jobs:
       APP_ENV: local
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: '24'
           package-manager-cache: false
       - run: npm ci --ignore-scripts
       - run: npm test
-      - name: Mostrar estado real de preparación de producción
-        run: node scripts/production-readiness.mjs --report
-      - name: Verificar que el demo coincida con su fuente
-        run: git diff --exit-code -- demo/index.html
+      - run: node scripts/check-pr-policy.mjs
+      - run: node scripts/production-readiness.mjs --report
+      - run: git diff --exit-code -- demo/index.html
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: business-results
+          path: .artifacts/test-results
+          retention-days: 30
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts
+      - run: npm run check:security
+      - run: npm audit --audit-level=high
+  qa-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: browser-results
+          path: |
+            .artifacts/playwright-report
+            .artifacts/playwright-results
+          retention-days: 14
