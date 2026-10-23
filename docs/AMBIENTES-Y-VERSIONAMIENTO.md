@@ -1,6 +1,6 @@
 # Ambientes y versionamiento de Margaret
 
-Configuración del repositorio privado `javidez89/margaret-pos`. Fecha: 22 de octubre de 2026.
+Configuración de `javidez89/margaret-pos`. Preparada el 22 de octubre de 2026; repositorio público y demo en GitHub Pages desde el 23 de octubre. Consulta [el sitio de revisión](GITHUB-PAGES.md).
 
 ## Los dos ambientes
 
@@ -15,7 +15,7 @@ Configuración del repositorio privado `javidez89/margaret-pos`. Fecha: 22 de oc
 | Alojamiento y dominio | No se requieren | Pendientes; no se ha publicado un sitio |
 | Ambiente en GitHub | `local`, limitado a `develop` | `production`, limitado a `main` |
 
-Actualmente todo el trabajo permanece en GitHub y en la copia local. Crear un ambiente en GitHub separa configuración y acceso a secretos de los trabajos, pero no crea un servidor o base de datos. El sistema actual sigue siendo un demo. La producción operativa requiere implementar el servidor central descrito en la arquitectura.
+El trabajo permanece en GitHub y en la copia local, con un demo estático público de revisión en GitHub Pages. Crear un ambiente en GitHub separa configuración y acceso a secretos de los trabajos, pero no crea un servidor o base de datos. El sistema actual sigue siendo un demo. La producción operativa requiere implementar el servidor central descrito en la arquitectura. El ambiente `github-pages` publica únicamente la vista de prueba desde main; no habilita el ambiente production.
 
 ## Iniciar local
 
@@ -93,7 +93,7 @@ Esto crea archivos en `.artifacts/releases/`, sin subirlos. En GitHub, el trabaj
 
 Los ambientes local/production y sus restricciones de rama existen en GitHub. También existe develop, y los flujos de validación y preparación de versiones se versionan con el código.
 
-**Las protecciones obligatorias de main y develop no están habilitadas.** GitHub rechazó su configuración en este repositorio privado con HTTP 403 y el mensaje de que requiere GitHub Pro o cambiar visibilidad. Se conserva el repositorio privado. La evidencia está en [github-environments-status.json](github-environments-status.json).
+**Las protecciones obligatorias de main y develop no están habilitadas.** En la configuración inicial, GitHub rechazó su aplicación al repositorio privado con HTTP 403. La evidencia histórica está en [github-environments-status.json](github-environments-status.json). El propietario autorizó cambiarlo a público el 23 de octubre; ese cambio de visibilidad no activa automáticamente las protecciones de ramas.
 
 Hasta disponer de esa capacidad, las reglas de PR y no force-push son una política de trabajo, no una barrera técnica. Un usuario con permiso de escritura todavía podría saltárselas. Cuando el plan lo permita, aplicar: PR obligatorio, estado `validate` aprobado y actualizado, conversaciones resueltas, bloqueo de force-push y borrado, y revisión independiente cuando exista otro mantenedor. CODEOWNERS indica el responsable; por sí solo no obliga a una aprobación.
 
