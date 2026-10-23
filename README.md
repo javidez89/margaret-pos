@@ -31,6 +31,8 @@ Los datos se guardan en el navegador y origen donde se abre el demo. Esta copia 
 
 La emisión DIAN y los pagos electrónicos reales no están integrados. El código Hash del voucher es un identificador interno. La sincronización se limita a pestañas del mismo archivo/origen y navegador; no hay servidor central implementado.
 
+La plataforma operativa está diseñada para ingresar por una URL HTTPS desde cualquier lugar, en computador o celular, con cuentas y datos centrales. El dominio y alojamiento todavía no se han seleccionado. Consulta el [requisito de acceso por Internet](docs/REVISION-ARQUITECTURA-BACKEND.md#acceso-por-url-desde-cualquier-lugar).
+
 ## Estructura
 
 ```text

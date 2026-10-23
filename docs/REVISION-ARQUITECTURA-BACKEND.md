@@ -9,6 +9,7 @@ La propuesta React + TypeScript, NestJS y PostgreSQL es adecuada para el primer 
 Decisiones confirmadas por el negocio en esta revisión:
 
 - Un local, varios cajeros y conexión obligatoria para confirmar ventas.
+- Plataforma web publicada en una URL HTTPS estable, accesible por Internet desde cualquier lugar mediante usuario y contraseña. Un solo local es el alcance del negocio, no una limitación a su red física.
 - Para cuentas reales, sustituir la cédula como contraseña temporal por activación aleatoria, de un solo uso y con vencimiento. La cédula se conserva como dato del perfil.
 - Desarrollar y validar en pruebas antes de promover a producción. Por ahora se trabaja en GitHub; no hay proveedor de alojamiento contratado.
 
@@ -37,6 +38,20 @@ flowchart LR
 ```
 
 Las llamadas externas se realizan después de confirmar la transacción. Una impresora caída no cancela una venta confirmada ni obliga a cobrar de nuevo. El adaptador fiscal sigue pendiente de definición y habilitación; elegir una opción en el demo no implementa emisión fiscal.
+
+## Acceso por URL desde cualquier lugar
+
+La plataforma operativa tendrá una dirección web estable para ingresar desde computador, tableta o celular con conexión a Internet, sin instalar el programa. El servidor y la base estarán alojados en infraestructura accesible por Internet, independientes del computador del local. Todos los dispositivos autorizados consultarán las mismas ventas, existencias, turnos y reportes de la base central.
+
+La URL permite llegar al ingreso; cada usuario solo puede consultar o modificar lo que permitan su rol y asignación. Acceder desde fuera del local no omite aprobación/apertura de turno ni concede permiso para vender. Mantener sesiones por dispositivo, cierre de sesión y posibilidad de revocarlas; exigir autenticación reforzada a las cuentas privilegiadas según el diseño de seguridad.
+
+| Ambiente | Dirección y comportamiento esperado |
+| --- | --- |
+| Demo actual | [Demo estable en GitHub Pages](https://javidez89.github.io/margaret-pos/). Se puede abrir por Internet, pero sus datos siguen siendo locales al navegador. No es todavía la plataforma central. |
+| Pruebas operativas futuras | URL HTTPS propia, con origen, base, archivos y credenciales separados de producción; solo datos sintéticos. |
+| Producción operativa futura | Una URL HTTPS principal para los usuarios, con la web y `/api/v1` bajo el mismo origen. Dominio y alojamiento pendientes de seleccionar; no hay todavía una dirección operativa publicada. |
+
+Aceptación antes del piloto: ingresar con cuentas autorizadas desde dos dispositivos y redes distintas; registrar una compra o venta en uno y comprobar el dato confirmado en el otro; verificar permisos, revocación de sesión y bloqueo de venta sin turno aprobado. Validar formularios y menús en tamaños de celular y escritorio. El respaldo programado debe funcionar con el computador del local apagado. Perder conexión conserva el estado visible del cobro y exige verificar su resultado antes de reintentar con la misma clave.
 
 ## Hallazgos sobre el repositorio actual
 

@@ -31,6 +31,8 @@ Documento de diseño para dirección y equipo de desarrollo. Versión 1.0, 22 de
 
 Una empresa y un punto de venta inicial, preparado para varios terminales. Todas las operaciones incluyen empresa, local, usuario, fecha y turno cuando corresponda. Abrir nuevas sucursales requiere validar sus cajas, numeraciones, permisos y conectividad.
 
+Requisito confirmado: la plataforma operativa se publicará en una URL HTTPS para ingresar por Internet desde cualquier lugar y dispositivo compatible, con los mismos datos centrales y controles de acceso. El servidor no dependerá de que el computador del local permanezca encendido. Dominio y alojamiento siguen pendientes; ver [acceso remoto y criterios de aceptación](REVISION-ARQUITECTURA-BACKEND.md#acceso-por-url-desde-cualquier-lugar).
+
 ## Componentes y comunicación
 
 ![Diagrama architecture](arquitectura/architecture.svg)
