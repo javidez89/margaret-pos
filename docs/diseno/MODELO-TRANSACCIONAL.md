@@ -2,6 +2,8 @@
 
 Diseño propuesto · 23 de octubre de 2026 · Complemento de la [revisión del backend](../REVISION-ARQUITECTURA-BACKEND.md). No es una migración ejecutada ni una API disponible.
 
+La [evaluación de Supabase](../DECISION-GITHUB-SUPABASE.md) añade una opción de identidad gestionada: en ese caso, `users`/perfiles referencian el identificador de Auth y sus contraseñas/tokens de activación son responsabilidad del proveedor. Adaptar las entidades de acceso y la sesión de aplicación al modelo elegido; no duplicar hashes ni tratar nombres de tablas de este diseño como una migración ya aprobada.
+
 ## Convenciones y alcance
 
 - Una organización y un local iniciales; `organization_id` y `store_id` explícitos en recursos de negocio. Identificadores internos UUID, separados del usuario legible y del número de recibo.

@@ -4,6 +4,8 @@ Versión 1.0 | 22 de octubre de 2026 | Colombia
 
 Actualización del 23 de octubre: consultar la [revisión para iniciar el backend](REVISION-ARQUITECTURA-BACKEND.md), el [modelo transaccional](diseno/MODELO-TRANSACCIONAL.md) y el [procedimiento de recuperación](operacion/RECUPERACION.md). Esos documentos amplían el diseño y registran las decisiones confirmadas de un local, ventas en línea y activación segura para cuentas reales. El PDF conserva la instantánea original del día 22.
 
+La [comparación de GitHub, Supabase y API](DECISION-GITHUB-SUPABASE.md) evalúa servicios gestionados, costos y riesgos. Recomienda considerar Supabase conservando la API modular; la selección y contratación siguen pendientes. La identidad gestionada sustituiría la implementación propia de contraseñas, sin duplicarla.
+
 ## Arquitectura de la plataforma
 
 > Margaret necesita una aplicación web con un servidor central y una base de datos compartida. La autorización de una venta debe decidirse en el servidor, con el turno y el inventario vigentes.
@@ -189,7 +191,7 @@ Preparar impresión de 58/80 mm según el equipo confirmado. El lector en modo t
 
 | Riesgo | Control propuesto |
 | --- | --- |
-| Acceso con clave conocida | Activación de un uso; MFA para roles administrativos; límites de intentos y recuperación verificada. Hash de contraseñas con Argon2id y parámetros calibrados. [S8] |
+| Acceso con clave conocida | Activación de un uso; MFA para roles administrativos; límites de intentos y recuperación verificada. Argon2id calibrado si se implementa identidad propia; si se elige Auth gestionado, usar su mecanismo sin duplicar hashes. [S8] |
 | Robo de sesión | HTTPS; cookies Secure, HttpOnly y SameSite; protección CSRF donde corresponda. Rotar sesión al autenticar; revocar al retirar acceso o cambiar privilegios. No guardar tokens de sesión en localStorage. [S9] |
 | Vender sin permiso o en otro local | Denegar por defecto y validar cada solicitud/recurso en servidor. Revisar sesión, permisos, asignación y estado al confirmar; nunca confiar en IDs o roles enviados por la web. [S4, S5] |
 | Manipular precios o stock | Validación estructural y de negocio; consultas parametrizadas; claves y restricciones; bloqueo de turno y saldos dentro de la transacción. [S3] |

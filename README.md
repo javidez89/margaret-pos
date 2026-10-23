@@ -65,6 +65,7 @@ Las pruebas verifican exportaciones, restauración completa de respaldos, permis
 ## Documentación
 
 - [Revisión para iniciar el backend: hallazgos, decisiones y plan](docs/REVISION-ARQUITECTURA-BACKEND.md) — actualización del 23 de octubre de 2026.
+- [Evaluación de GitHub, Supabase y API: ventajas, riesgos y costos](docs/DECISION-GITHUB-SUPABASE.md) — recomendación de proveedor pendiente de elección.
 - [Modelo transaccional, base de datos y contratos iniciales](docs/diseno/MODELO-TRANSACCIONAL.md).
 - [Respaldos y recuperación operativa del futuro backend](docs/operacion/RECUPERACION.md).
 - [Arquitectura, seguridad y flujo end to end](docs/Margaret-arquitectura-seguridad-end-to-end.md).

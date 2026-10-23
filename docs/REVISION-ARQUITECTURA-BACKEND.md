@@ -6,6 +6,8 @@
 
 La propuesta React + TypeScript, NestJS y PostgreSQL es adecuada para el primer local. Recomendamos mantener un **monolito modular**, con API y trabajador como procesos separados del mismo proyecto. El siguiente trabajo debe construir una primera operación completa con persistencia central; el HTML actual sigue siendo la referencia funcional y visual.
 
+La [evaluación de GitHub, Supabase y API](DECISION-GITHUB-SUPABASE.md) amplía este diseño: recomienda GitHub para código/CI y Supabase como candidato de PostgreSQL, identidad y archivos gestionados, conservando la API de negocio. Incluye alternativas, límites de Pages, costo y riesgos; proveedor y contratación siguen pendientes. Si se elige Auth gestionado, se adapta la identidad sin mantener contraseñas propias en paralelo.
+
 Decisiones confirmadas por el negocio en esta revisión:
 
 - Un local, varios cajeros y conexión obligatoria para confirmar ventas.
@@ -19,7 +21,7 @@ Decisiones técnicas propuestas para implementar:
 | --- | --- |
 | Frontend | React + TypeScript por módulos; conservar marca, categorías, medios de pago horizontales y mensajes claros. Migración gradual sin copiar el objeto `db` al nuevo cliente. |
 | Backend | NestJS: identidad, equipo, turnos/caja, catálogo, compras, ventas, devoluciones, gastos/nómina, reportes, documentos y operaciones. Los casos de uso controlan las transacciones. |
-| Datos | PostgreSQL 18 como base soportada de referencia; SQL parametrizado y migraciones versionadas. Con `pg`, cada transacción usa una única conexión reservada del pool. La versión exacta de paquetes se fijará al iniciar el código. |
+| Datos | PostgreSQL soportado, compatible con la versión real del proveedor elegido; la referencia inicial fue 18. SQL parametrizado y migraciones versionadas. Con `pg`, cada transacción usa una única conexión reservada del pool. Versiones exactas se fijarán al iniciar el código. |
 | Comunicación | Web y `/api/v1` bajo un mismo origen HTTPS por ambiente. Identidad y permisos resueltos en servidor. No exponer PostgreSQL a los navegadores. |
 | Trabajo diferido | Outbox en PostgreSQL para documentos, exportaciones y notificaciones. Trabajador independiente; no hace falta añadir Redis ni microservicios en el primer hito. |
 | Archivos | Objetos privados, versionados, con descargas temporales autorizadas. Credenciales, certificados y claves fuera del repositorio. |
@@ -109,7 +111,7 @@ La ficha de producto mostrará precio de venta, costo vigente de referencia y ga
 | Fuga de datos y archivos | Respuestas mínimas por permiso, límites de exportación/importación, archivos privados, caducidad y auditoría de descargas. Excluir credenciales de exportaciones gerenciales. | Un vendedor no descarga costos, datos personales de compañeros ni backups operativos. |
 | Abuso y alteración | Consultas parametrizadas, límites de cuerpo y frecuencia, CSP, salida escapada, trazabilidad sin secretos. Auditoría sin permisos de edición para la aplicación. | Inyección, enumeración de cuentas, CSV con fórmulas, HTML y archivos excesivos se rechazan o neutralizan. |
 
-Para contraseñas nuevas se propone Argon2id, calibrado en el servidor elegido. La cédula no será un secreto ni se mostrarán contraseñas al administrador. La recuperación de contraseña también usa tokens de un solo uso. Aplicar MFA a cuentas privilegiadas antes del piloto; definir recuperación y responsables para evitar quedar sin administrador. Estas decisiones se apoyan en [OWASP: contraseñas](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), [sesiones](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) y [tokens de recuperación](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html).
+Si se implementa autenticación propia, se propone Argon2id calibrado en el servidor. Si se elige Supabase Auth, se delega el almacenamiento/verificación al proveedor conforme a su diseño; no crear otro almacén de contraseñas en paralelo. La cédula no será un secreto ni se mostrarán contraseñas al administrador. La recuperación usa tokens de un solo uso. Aplicar MFA a cuentas privilegiadas antes del piloto; definir recuperación y responsables para evitar quedar sin administrador. Estas decisiones se apoyan en [OWASP: contraseñas](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), [sesiones](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) y [tokens de recuperación](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), con la adaptación gestionada explicada en la evaluación de proveedor.
 
 El primer administrador se provisiona mediante un procedimiento restringido de instalación y activación, sin cuenta/clave pública por defecto. El login responde de forma genérica a cuenta inexistente y clave incorrecta. Confirmar el canal de entrega de activaciones antes del piloto; no se ha contratado correo ni enviado invitaciones en esta revisión.
 
