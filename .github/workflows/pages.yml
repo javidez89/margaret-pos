@@ -8,7 +8,7 @@ permissions:
 jobs:
   verify:
     if: github.ref == 'refs/heads/develop'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       APP_ENV: local
@@ -24,7 +24,8 @@ jobs:
       - run: npm test
       - run: npm run check:security
       - run: npm audit --audit-level=high
-      - run: npx playwright install --with-deps chromium
+      - name: Registrar Chrome incluido en la imagen de GitHub
+        run: google-chrome --version
       - run: npm run test:e2e
       - run: git diff --exit-code -- demo/index.html
       - run: node scripts/prepare-pages.mjs testing
@@ -41,7 +42,7 @@ jobs:
           retention-days: 14
   publish:
     needs: verify
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     concurrency:
       group: pages-publication

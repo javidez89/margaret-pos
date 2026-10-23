@@ -5,6 +5,6 @@ export default defineConfig({
   reporter: [['list'], ['html', { outputFolder: '.artifacts/playwright-report', open: 'never' }]],
   outputDir: '.artifacts/playwright-results',
   use: { baseURL: 'http://127.0.0.1:4174', trace: 'retain-on-failure', screenshot: 'only-on-failure' },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [{ name: process.env.CI ? 'chrome' : 'chromium', use: { ...devices['Desktop Chrome'], ...(process.env.CI ? { channel: 'chrome' } : {}) } }],
   webServer: { command: 'node scripts/serve-qa.mjs', url: 'http://127.0.0.1:4174', reuseExistingServer: false, timeout: 15000 },
 });

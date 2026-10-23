@@ -51,6 +51,8 @@ npm run test:e2e
 
 El navegador de pruebas usa perfiles efímeros y datos ficticios. No opera sobre el navegador personal ni sus archivos de respaldo. Los resultados se guardan en `.artifacts/`, excluido de Git.
 
+En GitHub se utiliza el canal Chrome incluido en la imagen Ubuntu 24.04 mediante Playwright; su versión efectiva queda en los registros. Así no depende de reinstalar paquetes del sistema en cada ejecución. La ejecución local usa el Chromium correspondiente a la versión fijada de Playwright.
+
 ## Controles y evidencia de QA
 
 | Control | Qué verifica | Resultado en GitHub |

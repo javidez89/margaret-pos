@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+test.beforeAll(async ({ browser }) => { console.log(`Navegador de QA: ${browser.browserType().name()} ${browser.version()}`); });
 async function login(page, username) {
   await page.goto('/pruebas/');
   await page.locator('#username').fill(username);

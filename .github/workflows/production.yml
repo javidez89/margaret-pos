@@ -11,7 +11,7 @@ permissions:
 jobs:
   prepare:
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     env:
       APP_ENV: local
@@ -36,13 +36,13 @@ jobs:
           retention-days: 30
   approval:
     needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     steps:
       - run: echo 'Aprobación del responsable registrada en GitHub.'
   publish:
     needs: [prepare, approval]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     concurrency:
       group: pages-publication
