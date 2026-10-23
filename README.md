@@ -4,6 +4,8 @@ Demo funcional de administración y punto de venta para Margaret. Conserva la id
 
 ## Ver el demo
 
+**[Abrir Margaret en GitHub Pages](https://javidez89.github.io/margaret-pos/)** — demo público para revisión, con datos guardados en cada navegador. Consulta la [guía de publicación](docs/GITHUB-PAGES.md).
+
 Abre [demo/index.html](demo/index.html) en tu navegador, o usa Node.js 24:
 
 ```sh
@@ -43,7 +45,7 @@ docs/                       Guías, arquitectura y evidencia de validación
 
 ## Compilar y validar
 
-El desarrollo y las pruebas pertenecen al ambiente **local** y a la rama `develop`. `main` conserva versiones estables; el ambiente `production` está reservado en GitHub, sin sitio o backend operativo. Consulta [ambientes y versionamiento](docs/AMBIENTES-Y-VERSIONAMIENTO.md).
+El desarrollo y las pruebas pertenecen al ambiente **local** y a la rama `develop`. `main` conserva versiones estables y publica el demo de revisión en GitHub Pages. El ambiente `production` sigue reservado, sin backend operativo. Consulta [ambientes y versionamiento](docs/AMBIENTES-Y-VERSIONAMIENTO.md).
 
 ```sh
 npm ci --ignore-scripts
@@ -72,4 +74,4 @@ El catálogo de prueba contiene referencias de un catálogo entregado por el neg
 
 No subir respaldos del negocio, datos personales reales, certificados DIAN, tokens, claves privadas ni archivos `.env`. Los ejemplos y contraseñas iniciales forman parte del demo y no deben desplegarse como controles de producción. Consulta [SECURITY.md](SECURITY.md).
 
-La arquitectura de servidor, base de datos central, autenticación y emisión fiscal descrita en `docs/` es una propuesta de implementación futura. El repositorio permanece privado y no concede una licencia de distribución pública.
+La arquitectura de servidor, base de datos central, autenticación y emisión fiscal descrita en `docs/` es una propuesta de implementación futura. El repositorio es público para revisión desde el 23 de octubre de 2026. La visibilidad pública no concede una licencia adicional sobre el código, la marca o el catálogo.
