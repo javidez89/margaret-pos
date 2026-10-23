@@ -23,5 +23,5 @@ const files = [filename, 'release-metadata.json'];
 const sums = [];
 for (const file of files) sums.push(`${createHash('sha256').update(await readFile(resolve(dir, file))).digest('hex')}  ${file}`);
 await writeFile(resolve(dir, 'SHA256SUMS'), sums.join('\n') + '\n');
-await writeFile(resolve(dir, 'release-notes.md'), `# Margaret ${tag}\n\nVersión preliminar para pruebas. No despliega ni habilita un sistema de ventas en producción.\n\nCommit: ${commit}\n\nIncluye demo local, arquitectura, guías y pruebas. El archivo SHA256SUMS permite comprobar los archivos descargados. Producción queda pendiente de alojamiento, dominio y servicio central.\n`);
+await writeFile(resolve(dir, 'release-notes.md'), `# Margaret ${tag}\n\nVersión preliminar para pruebas. No despliega ni habilita un sistema de ventas en producción.\n\nCommit: ${commit}\n\nIncluye demo local, arquitectura, guías y pruebas. El archivo SHA256SUMS permite comprobar los archivos descargados. La interfaz objetivo es GitHub Pages; operación real pendiente de implementar y validar Supabase, recuperación y condiciones de uso. Dominio propio opcional.\n`);
 console.log(`Versión de pruebas preparada: .artifacts/releases/${tag}`);

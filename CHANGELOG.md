@@ -2,6 +2,14 @@
 
 Este proyecto usa versiones MAJOR.MINOR.PATCH. Las versiones 0.x todavía son de desarrollo y validación.
 
+## 0.4.0 - 2026-10-23
+
+- Decisión de arquitectura: GitHub Pages para la interfaz y Supabase para backend, con pruebas funcionales locales y CI efímero. Sin NestJS ni otro alojamiento.
+- Se retira el publicador de develop. La siguiente publicación aprobada incluirá solo producción, sin la antigua ruta pública `/pruebas/`.
+- Promoción vinculada al commit/árbol/versiones y los tres controles CI reales de develop; revalidación de evidencia tras aprobación, sin depender de un sitio de QA público.
+- Se conserva la aprobación manual, claves de almacenamiento del demo estable y bloqueo de operación real hasta implementar y validar Supabase y recuperación.
+- Regresiones para origen/estado de QA, controles ausentes o fallidos, contenido distinto y rutas de consulta no permitidas.
+
 ## 0.3.1 - 2026-10-23
 
 - Extracción explícita del JavaScript de la plantilla para su validación, sin regex de filtrado HTML.

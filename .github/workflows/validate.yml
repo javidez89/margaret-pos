@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: quality-${{ github.ref }}
   cancel-in-progress: true
@@ -27,6 +28,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm test
       - run: node scripts/check-pr-policy.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
       - run: node scripts/production-readiness.mjs --report
       - run: git diff --exit-code -- demo/index.html
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

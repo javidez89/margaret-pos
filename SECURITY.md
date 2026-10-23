@@ -2,7 +2,7 @@
 
 Este repositorio contiene un prototipo local, no un sistema apto para almacenar información real del negocio en producción.
 
-El prototipo tiene vistas públicas de pruebas y estable. Consulta [los controles vigentes](docs/GOBIERNO-DESARROLLO.md). La separación de almacenamiento de esas vistas no sustituye bases, dominios y autorización de servidor separados.
+La decisión vigente es interfaz en GitHub Pages y backend Supabase, con pruebas locales y CI efímero. La URL pública aún sirve el demo y la antigua vista de pruebas se retirará del siguiente artefacto aprobado. Consulta [los controles vigentes](docs/GOBIERNO-DESARROLLO.md) y la [arquitectura actual](docs/ARQUITECTURA-VIGENTE.md). Separar frontend local no aísla una base remota: nunca usar producción para pruebas.
 
 - Los permisos y accesos del demo se ejecutan en el navegador. Los controles reales deben validarse en un servidor central.
 - Las claves `1234` y el uso de cédula como contraseña temporal son requisitos de prueba; para producción se requiere acordar una activación segura y retirar cuentas por defecto.

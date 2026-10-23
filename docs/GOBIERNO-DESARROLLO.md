@@ -1,101 +1,72 @@
-# Desarrollo, QA, seguridad y DevOps
+# Desarrollo, QA, seguridad y publicación
 
-Flujo vigente desde el 23 de octubre de 2026. Repositorio: https://github.com/javidez89/margaret-pos
+Flujo vigente desde la decisión del 23 de octubre de 2026. [Arquitectura vigente](ARQUITECTURA-VIGENTE.md): GitHub Pages + Supabase, pruebas locales y CI efímero, sin sitio público de QA.
 
-## Ambientes y alcance real
+## Ambientes
 
-| Ambiente | Rama | URL | Publicación |
-| --- | --- | --- | --- |
-| Pruebas | develop | https://javidez89.github.io/margaret-pos/pruebas/ | Automática después de las verificaciones |
-| Versión estable del demo | main | https://javidez89.github.io/margaret-pos/ | Manual, con aprobación del ambiente production |
+| Ambiente | Rama | URL y datos |
+| --- | --- | --- |
+| Desarrollo y prueba funcional | Rama de trabajo / develop | http://127.0.0.1:4173; datos sintéticos; Supabase local cuando se implemente. |
+| CI | PR y push a develop/main | Ejecución efímera sin URL pública; informes de negocio y navegador. |
+| Producción objetivo | main | https://javidez89.github.io/margaret-pos/; todavía sirve el demo. Backend Supabase pendiente. |
 
-El equipo desarrolla en ramas breves y prueba en develop. No se desarrolla ni ensaya sobre la versión estable. Las dos vistas siguen siendo un demo: no existe aún backend, autenticación central, base compartida, cobro electrónico ni emisión fiscal. La producción operativa permanece bloqueada en `environments/production.json`.
-
-Los sitios tienen almacenamiento, respaldos locales y bloqueo de escritura con nombres diferentes. La versión estable conserva las claves que ya usaba para no reiniciar escenarios existentes. Como ambos sitios comparten el origen GitHub Pages, la separación es funcional; un backend operativo necesitará bases, credenciales y dominios separados. No cargar información real en estas vistas públicas.
+La ruta pública `/pruebas/` pertenece al flujo anterior. El workflow que la publicaba se retira; dejará de incluirse en el siguiente despliegue de producción aprobado. No borrar claves del almacenamiento del navegador ni datos existentes del demo estable. Las fixtures de navegador bajo `/pruebas/` son únicamente locales al runner de QA.
 
 ## Recorrido de un cambio
 
 ```text
-requisito y aceptación -> rama de trabajo -> PR a develop
--> validación + seguridad + Chromium -> publicación de pruebas
--> revisión funcional -> versión y CHANGELOG -> PR develop a main
--> controles obligatorios -> inicio manual de Promover versión estable
--> aprobación del responsable -> verificación de QA del mismo código
--> publicación -> comprobación HTTPS e integridad
+requisito -> rama desde develop -> desarrollo y QA local
+-> PR a develop -> validate + security + qa-browser
+-> integración y CI del commit de develop -> revisión funcional
+-> SemVer y CHANGELOG -> PR develop a main -> controles aprobados
+-> inicio manual de publicación -> aprobación production
+-> revalidación de evidencia CI y candidato -> Pages -> comprobación HTTPS/SHA-256
 ```
 
-La promoción compara el árbol de código completo, la versión y la ejecución de QA de develop. Acepta un commit de integración distinto solo si su contenido es exactamente el mismo que se validó. Rechaza una rama modificada mientras esperaba publicación. El publicador usa el candidato compilado de su ejecución y no lo reconstruye después de aprobarlo.
+No se desarrolla sobre producción. Mantener PR obligatorios, ramas actualizadas, conversaciones resueltas, bloqueo de force-push/borrado y reglas de etiquetas. El responsable actual es una sola persona; no presentar sus controles como revisión independiente. No aprobar un despliegue en su nombre ni retirar protecciones para completar una entrega.
 
-Las dos publicaciones comparten una exclusión mutua para evitar sobrescribir simultáneamente el sitio. Al actualizar pruebas se descarga y verifica el HTML estable actual y se conserva byte por byte. Al publicar estable se conserva la vista de pruebas. Si la descarga o su SHA-256 falla, el publicador se detiene en lugar de eliminar una de las vistas.
+## Preparación y QA local
 
-Después de promover a main, sincronizar main hacia develop mediante PR antes de iniciar una nueva versión si quedaron ramas divergentes. Las protecciones también se aplican a administradores; la sincronización no utiliza force-push ni una excepción permanente.
-
-## Desarrollo local
-
-Node.js 24, dependencias de desarrollo fijadas en package-lock.json:
+Node 24 y dependencias fijadas en el lockfile:
 
 ```sh
 npm ci --ignore-scripts
-npm run build
 npm test
 npm run check:security
 npm run dev
 ```
 
-El demo autónomo no tiene dependencias de ejecución externas. Playwright es una dependencia de desarrollo. Para QA de navegador:
+La web se abre en http://127.0.0.1:4173. El servidor solo acepta loopback. La futura base/Auth/Storage de pruebas será local y no usará el proyecto ni los secretos de producción; tener la web en localhost no aísla una base remota por sí solo.
 
-```sh
-npx playwright install chromium
-npm run test:e2e
-```
+La suite Playwright usa un perfil efímero. En CI utiliza Chrome incluido en Ubuntu; el desarrollador puede ejecutar `npm run test:e2e` con el Chromium correspondiente instalado. Las pruebas no operan el navegador personal. No presentar resultados de CI como prueba de impresora física, emisión fiscal o recuperación del servicio real.
 
-El navegador de pruebas usa perfiles efímeros y datos ficticios. No opera sobre el navegador personal ni sus archivos de respaldo. Los resultados se guardan en `.artifacts/`, excluido de Git.
+## Evidencia de promoción
 
-En GitHub se utiliza el canal Chrome incluido en la imagen Ubuntu 24.04 mediante Playwright; su versión efectiva queda en los registros. Así no depende de reinstalar paquetes del sistema en cada ejecución. La ejecución local usa el Chromium correspondiente a la versión fijada de Playwright.
+Los tres controles obligatorios permanecen: `validate`, `security`, `qa-browser`. CodeQL es complementario. Dependabot propone cambios a develop sin desplegar automáticamente.
 
-## Controles y evidencia de QA
+`check-pr-policy.mjs` exige PR desde develop del mismo repositorio y QA correcto de ese commit en un push a develop. La ejecución debe pertenecer a `validate.yml`; verificar además los tres jobs, no solo la conclusión global. Un workflow ajeno, fork, job omitido/fallido o contenido distinto no acredita QA.
 
-| Control | Qué verifica | Resultado en GitHub |
-| --- | --- | --- |
-| validate | Compilación, versión, respaldo íntegro, turnos, venta, devolución y promoción | Control obligatorio e informe de negocio |
-| security | Patrones de secretos, archivos privados, acciones fijadas y vulnerabilidades altas de dependencias | Control obligatorio |
-| qa-browser | Acceso correcto e incorrecto, menú de vendedor e independencia de inventario en Chromium | Control obligatorio, informe HTML y trazas si falla |
-| CodeQL | Análisis estático de scripts y JavaScript extraído del demo | Hallazgos en Security; análisis complementario, no aprobación automática |
-| Publicación de pruebas | Repite negocio, seguridad y Chromium; publica y verifica HTTPS/SHA-256 | Ejecución que debe finalizar correctamente antes de promover |
+El candidato incluye versión, commit, árbol Git completo, SHA-256 y referencia de QA. Main puede tener un commit de integración distinto si el árbol completo es idéntico al validado. Antes de publicar, se comprueba que main no cambió y se consultan de nuevo ejecución, commit/árbol y jobs. La preparación y la publicación ya no descargan un sitio público de pruebas.
 
-No se permite publicar solo porque el HTML compiló. La regresión de negocio incluye exportación completa y protección de fórmulas CSV; restauración sin pérdida; turnos no aprobados que bloquean ventas; concurrencia; reembolso único; dinero devuelto por medio de pago y permisos simulados.
+El publicador usa el candidato de su propia ejecución. El directorio de salida debe estar vacío para evitar incluir vistas antiguas. La publicación contiene solo producción; el manifiesto declara pruebas locales. Conservar informes, comprobar el HTML remoto y no distribuir secretos, datos del negocio ni backups en artefactos públicos.
 
-Antes de aprobar estable, el responsable verifica también el flujo UX esperado y las pruebas manuales aplicables. Impresora, lector, recuperación física, varias máquinas y cumplimiento fiscal no se certifican mediante Chromium o pruebas simuladas. Registrar el caso, resultado y evidencia en el PR.
+## Versión y publicación
 
-## Seguridad y controles del repositorio
+Cambios de código/configuración/automatización requieren SemVer y CHANGELOG; regenerar `demo/index.html` desde su plantilla. No mover ni borrar etiquetas existentes.
 
-- Main y develop exigen PR, controles validate/security/qa-browser actualizados y conversaciones resueltas. Se bloquean force-push y borrado, incluidos administradores.
-- Actualmente existe un solo responsable. No se exige una aprobación de PR que el autor no puede darse a sí mismo; la aprobación de publicación estable queda explícita en el ambiente production. Esto no equivale a dos personas independientes. Al incorporar un segundo mantenedor, exigir revisión independiente y activar la prohibición de autoaprobación del despliegue.
-- Testing acepta develop; production acepta main y exige revisión del propietario. El trabajo que publica la vista estable solo se inicia manualmente.
-- Acciones oficiales fijadas por SHA, permisos por trabajo y sin credenciales Git persistidas en checkout. Las entradas del flujo pasan por variables y validación; no se interpolan en código de shell.
-- Secret scanning, protección de envío de secretos y alertas de dependencias complementan el escáner básico del proyecto. Ninguna de estas herramientas garantiza ausencia absoluta de secretos o vulnerabilidades.
-- Dependabot propone actualizaciones a develop; no integra ni despliega automáticamente.
-- Las reglas de etiquetas impiden actualizar o eliminar v*. Las versiones anteriores se conservan. Los secretos operativos y certificados no pertenecen al repositorio ni a paquetes descargables.
+1. Validar manualmente en local y revisar controles de PR.
+2. Integrar en develop y esperar CI de ese commit.
+3. Promover develop a main mediante PR con los controles obligatorios.
+4. Iniciar **Promover versión estable** desde main, indicando la etiqueta exacta.
+5. El responsable revisa el candidato y aprueba `production` en GitHub; el agente no lo aprueba por él.
+6. Comprobar publicación, metadata e integridad.
 
-El estado leído de GitHub está en `docs/github-governance-status.json`. El registro `github-environments-status.json` documenta la limitación histórica del repositorio cuando era privado; no describe el estado actual.
+**Preparar versión** genera un paquete y un borrador para descarga; no sustituye aprobación de Pages ni habilita el backend Supabase. Los entornos GitHub `production` y `github-pages` conservan sus protecciones; el antiguo `testing` puede quedar como registro sin workflow de publicación activo.
 
-## Versión y aprobación estable
+## Seguridad y reversión
 
-Usar MAJOR.MINOR.PATCH y mensajes `feat:`, `fix:`, `test:`, `docs:` o `chore:`. Antes de promover cambios de código o automatización, aumentar versión, actualizar CHANGELOG y volver a compilar. La misma etiqueta no se sobrescribe.
+Acciones fijadas por SHA, permisos mínimos, checkout sin credenciales persistidas y tokens limitados a consultas de este repositorio. La web solo recibirá configuración pública Supabase; las credenciales privilegiadas serán de funciones/despliegue. Escáneres y controles automáticos complementan revisión; no garantizan ausencia de fallos.
 
-1. Esperar que Publicar pruebas termine correctamente y revisar la URL de pruebas.
-2. Abrir PR de develop a main. El control de promoción exige el commit publicado de develop y una versión incrementada cuando corresponde.
-3. Integrar únicamente con los controles aprobados.
-4. En Actions, iniciar **Promover versión estable** desde main con la etiqueta exacta, por ejemplo v0.3.0.
-5. El responsable revisa el candidato y aprueba el ambiente production en GitHub. El publicador comprueba otra vez la correspondencia con QA antes de modificar el sitio.
-6. Revisar la comprobación posterior a la publicación y los metadatos deployment.json.
+Revertir mediante commits y PR con nueva versión y QA; no usar force-push. Revertir frontend no restaura dinero ni base de datos. Los cambios futuros de Supabase necesitarán migraciones ensayadas, compatibilidad y recuperación, según [la guía operativa](operacion/RECUPERACION.md).
 
-**Preparar versión** es un flujo distinto: crea etiqueta anotada, ZIP, metadatos, SHA256SUMS y borrador preliminar para descarga. Ese borrador no convierte el demo en producción operativa. No se han publicado automáticamente todas las versiones de desarrollo.
-
-## Reversión e incidentes
-
-Conservar los artefactos de publicación y su versión. Si una publicación falla, no cambiar el otro ambiente: revisar el informe y corregir mediante PR. Para revertir el comportamiento estable, revertir el cambio con un nuevo commit y nueva versión, repetir QA y obtener aprobación. No borrar historia ni mover etiquetas.
-
-Un respaldo de operaciones del navegador es diferente de un artefacto del programa. La reversión del código no recupera ventas o dinero. Para producción real deberán implementarse restauración de base de datos ensayada, migraciones compatibles, monitoreo, registro central, gestión de incidentes y objetivos de recuperación acordados.
-
-Referencias: [protecciones de ramas](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches), [seguridad en Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions), [QA con Playwright](https://playwright.dev/docs/ci-intro).
+La [arquitectura vigente](ARQUITECTURA-VIGENTE.md) conserva el estado real, la decisión de Pages y su riesgo de condiciones de uso. `operationalReady` sigue deshabilitado mientras falten backend, identidad, datos compartidos y restauración.

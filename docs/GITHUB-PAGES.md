@@ -1,23 +1,19 @@
-# Demo público para revisión
+# GitHub Pages: interfaz de producción objetivo
 
-> El sitio ahora tiene [pruebas](https://javidez89.github.io/margaret-pos/pruebas/) y [versión estable](https://javidez89.github.io/margaret-pos/). Consulta [el flujo vigente](GOBIERNO-DESARROLLO.md); la descripción siguiente corresponde a la publicación inicial.
+URL elegida por el usuario: **https://javidez89.github.io/margaret-pos/**. El dominio propio se configurará después. Hoy se sirve el demo; el backend real Supabase está pendiente.
 
-URL: **https://javidez89.github.io/margaret-pos/**
+La interfaz estática se publicará desde main. Supabase alojará autenticación, base, documentos y funciones de negocio; no se despliega NestJS ni otro servidor en Pages. Consultar la [arquitectura vigente](ARQUITECTURA-VIGENTE.md), incluidos los límites de uso del proveedor.
 
-GitHub Pages publica el demo estático desde `main`. No requiere descargar el repositorio ni abrir un archivo local. Las cuentas de demostración y su alcance están en el README. La página identifica **DEMO · PRUEBAS** y conserva la identidad corporativa.
+## Pruebas y publicación
 
-Los datos ficticios y los cambios se almacenan en cada navegador. Abrir el enlace en otro dispositivo no comparte las ventas ni los usuarios creados; tampoco traslada las operaciones del archivo local. Usa los respaldos de prueba para trasladar escenarios cuando lo necesites. Este sitio sirve para revisar el funcionamiento y no habilita la producción operativa descrita en la arquitectura.
+Pruebas funcionales en http://127.0.0.1:4173 y pruebas automáticas en GitHub Actions; no habrá una segunda URL pública. `/pruebas/` es una vista anterior y dejará de incluirse en el siguiente despliegue aprobado. No se modifica ni elimina almacenamiento del navegador.
 
-## Publicación y verificación
+La publicación es manual con **Promover versión estable**, desde main y con versión exacta. La preparación compila y comprueba negocio, seguridad y navegador; acredita QA del árbol exacto validado en develop. Después requiere aprobación `production`, revalida esa evidencia y publica únicamente el candidato preparado.
 
-El flujo `Publicar demo en GitHub Pages` se ejecuta al integrar cambios en `main`, o manualmente desde esa rama. Antes de publicar, ejecuta las pruebas y comprueba que el HTML generado coincide con la fuente. El trabajo de publicación depende de esas verificaciones.
+El paquete contiene HTML, metadata y manifiesto con SHA-256/commit/versión/evidencia QA. No contiene backups reales, certificados ni secretos Supabase. Las acciones están fijadas por SHA y el trabajo de publicación conserva permisos mínimos y protección del ambiente.
 
-Solo se distribuyen `index.html` y `deployment.json`. El segundo identifica versión, commit y SHA-256 del HTML publicado. El ambiente `github-pages` admite la rama `main`; los permisos para publicar se limitan al trabajo de despliegue. Las acciones oficiales se fijan por commit. Los archivos `.env`, respaldos operativos y certificados no forman parte del paquete web.
+`npm run build:pages` prepara un candidato de producción solo cuando ese contenido ya tenga CI correcto de develop; no es un servidor local de prueba. Para revisión local usar `npm run dev`.
 
-La preparación local se puede revisar con:
+El publicador admite actualmente la URL GitHub indicada. Cambiar a dominio propio requerirá actualizar su URL base, DNS/Pages/HTTPS y configuración Auth/CORS; no crear un CNAME hasta conocer el dominio. Una sustitución de dominio no modifica las condiciones de uso de Pages.
 
-```sh
-npm run build:pages
-```
-
-El resultado se genera en `.build/pages/`, excluido de Git. Para revertir el sitio, revierte el cambio mediante una solicitud de cambio a `main` siguiendo el flujo de desarrollo. GitHub volverá a validar y publicar el commit resultante; no se reescriben etiquetas de versiones.
+Para revertir: nuevo commit y PR, validación y aprobación manual. Revertir código no recupera operaciones en Supabase ni datos guardados en navegadores.

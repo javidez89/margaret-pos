@@ -2,6 +2,12 @@
 
 Versión 1.0 | 22 de octubre de 2026 | Colombia
 
+**Antecedente de diseño:** la [arquitectura vigente](ARQUITECTURA-VIGENTE.md) registra la decisión posterior de usar GitHub Pages + Supabase y pruebas locales, sin NestJS. Prevalece para implementación; este documento y su PDF conservan el diseño original y sus reglas de negocio.
+
+Actualización del 23 de octubre: consultar la [revisión para iniciar el backend](REVISION-ARQUITECTURA-BACKEND.md), el [modelo transaccional](diseno/MODELO-TRANSACCIONAL.md) y el [procedimiento de recuperación](operacion/RECUPERACION.md). Esos documentos amplían el diseño y registran las decisiones confirmadas de un local, ventas en línea y activación segura para cuentas reales. El PDF conserva la instantánea original del día 22.
+
+La [comparación de GitHub, Supabase y API](DECISION-GITHUB-SUPABASE.md) evalúa servicios gestionados, costos y riesgos. Recomienda considerar Supabase conservando la API modular; la selección y contratación siguen pendientes. La identidad gestionada sustituiría la implementación propia de contraseñas, sin duplicarla.
+
 ## Arquitectura de la plataforma
 
 > Margaret necesita una aplicación web con un servidor central y una base de datos compartida. La autorización de una venta debe decidirse en el servidor, con el turno y el inventario vigentes.
@@ -28,6 +34,8 @@ Documento de diseño para dirección y equipo de desarrollo. Versión 1.0, 22 de
 ### Límite del alcance
 
 Una empresa y un punto de venta inicial, preparado para varios terminales. Todas las operaciones incluyen empresa, local, usuario, fecha y turno cuando corresponda. Abrir nuevas sucursales requiere validar sus cajas, numeraciones, permisos y conectividad.
+
+Requisito confirmado: la plataforma operativa se publicará en una URL HTTPS para ingresar por Internet desde cualquier lugar y dispositivo compatible, con los mismos datos centrales y controles de acceso. El servidor no dependerá de que el computador del local permanezca encendido. Dominio y alojamiento siguen pendientes; ver [acceso remoto y criterios de aceptación](REVISION-ARQUITECTURA-BACKEND.md#acceso-por-url-desde-cualquier-lugar).
 
 ## Componentes y comunicación
 
@@ -90,7 +98,7 @@ Un administrador o gerente registra nombre completo, cédula, correo, celular y 
 
 Se crea un acceso en estado de activación. El primer ingreso obliga a cambiar la contraseña; hasta entonces no permite vender. Tras activarse, la sesión recibe únicamente los permisos efectivos y el alcance del local. Retirar una cuenta revoca sus sesiones y mantiene ventas, cierres y nómina.
 
-> El demo usa la cédula como clave temporal por el requisito acordado. Es predecible. Para producción se propone sustituirla por una activación aleatoria, de un solo uso y con vencimiento; este cambio requiere acordarse antes de implementar. No desplegar las cuentas de prueba con clave 1234.
+> Decisión confirmada el 23 de octubre: las cuentas reales usarán activación aleatoria, de un solo uso y con vencimiento, seguida de la creación de contraseña personal. Reemplaza el requisito anterior de cédula como clave temporal, que todavía aparece en el demo histórico. No migrar esas claves ni desplegar las cuentas de prueba con clave 1234.
 
 Ningún gerente puede ampliar sus propios privilegios o conceder permisos que no puede delegar. Toda autorización combina rol, local, recurso y estado de la operación; ocultar un botón no sustituye este control. [S4]
 
@@ -185,7 +193,7 @@ Preparar impresión de 58/80 mm según el equipo confirmado. El lector en modo t
 
 | Riesgo | Control propuesto |
 | --- | --- |
-| Acceso con clave conocida | Activación de un uso; MFA para roles administrativos; límites de intentos y recuperación verificada. Hash de contraseñas con Argon2id y parámetros calibrados. [S8] |
+| Acceso con clave conocida | Activación de un uso; MFA para roles administrativos; límites de intentos y recuperación verificada. Argon2id calibrado si se implementa identidad propia; si se elige Auth gestionado, usar su mecanismo sin duplicar hashes. [S8] |
 | Robo de sesión | HTTPS; cookies Secure, HttpOnly y SameSite; protección CSRF donde corresponda. Rotar sesión al autenticar; revocar al retirar acceso o cambiar privilegios. No guardar tokens de sesión en localStorage. [S9] |
 | Vender sin permiso o en otro local | Denegar por defecto y validar cada solicitud/recurso en servidor. Revisar sesión, permisos, asignación y estado al confirmar; nunca confiar en IDs o roles enviados por la web. [S4, S5] |
 | Manipular precios o stock | Validación estructural y de negocio; consultas parametrizadas; claves y restricciones; bloqueo de turno y saldos dentro de la transacción. [S3] |
@@ -313,4 +321,4 @@ Fuentes oficiales consultadas el 22 de octubre de 2026. Las recomendaciones de c
 
 ### Decisiones que faltan antes de construir
 
-Confirmar la ruta fiscal con el RUT del negocio; proveedor o implementación propia; impuestos y redondeos; cambio de clave temporal; restricción por horario; permisos delegables; costo/infraestructura y responsables del servicio. Validar RPO/RTO y retención con capacidad y presupuesto. No se han fijado fechas de entrega ni costos comerciales sin esa definición.
+Confirmar la ruta fiscal con el RUT del negocio; proveedor o implementación propia; impuestos y redondeos; restricción por horario; permisos delegables; costo/infraestructura y responsables del servicio. Validar RPO/RTO y retención con capacidad y presupuesto. La activación segura, el primer local y las ventas en línea quedaron confirmados el 23 de octubre. No se han fijado fechas de entrega ni costos comerciales sin esa definición.
