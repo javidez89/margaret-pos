@@ -2,6 +2,12 @@
 
 Este proyecto usa versiones MAJOR.MINOR.PATCH. Las versiones 0.x todavía son de desarrollo y validación.
 
+## 0.3.1 - 2026-10-23
+
+- Extracción explícita del JavaScript de la plantilla para su validación, sin regex de filtrado HTML.
+- URL pública y rutas de consulta GitHub limitadas; rechazo de redirecciones y regresión para rutas no permitidas.
+- Revisión documentada de los avisos iniciales de CodeQL y de las transferencias previstas del publicador.
+
 ## 0.3.0 - 2026-10-23
 
 - Ambiente de pruebas en develop y vista estable con promoción manual desde main.
