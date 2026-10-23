@@ -62,8 +62,11 @@ Las pruebas verifican exportaciones, restauración completa de respaldos, permis
 
 ## Documentación
 
+- [Revisión para iniciar el backend: hallazgos, decisiones y plan](docs/REVISION-ARQUITECTURA-BACKEND.md) — actualización del 23 de octubre de 2026.
+- [Modelo transaccional, base de datos y contratos iniciales](docs/diseno/MODELO-TRANSACCIONAL.md).
+- [Respaldos y recuperación operativa del futuro backend](docs/operacion/RECUPERACION.md).
 - [Arquitectura, seguridad y flujo end to end](docs/Margaret-arquitectura-seguridad-end-to-end.md).
-- [Documento de arquitectura en PDF](docs/pdf/Margaret-arquitectura-seguridad-end-to-end.pdf).
+- [Documento de arquitectura en PDF](docs/pdf/Margaret-arquitectura-seguridad-end-to-end.pdf) — instantánea del 22 de octubre; consultar la revisión posterior para las decisiones vigentes.
 - [Guía de turnos](docs/Margaret-guia-turnos.md).
 - [Descarga y recuperación de respaldos](docs/Margaret-guia-respaldos.md).
 - [Alcance de facturación y respaldos](docs/Margaret-facturacion-y-respaldos.md).

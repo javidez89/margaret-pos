@@ -2,6 +2,8 @@
 
 Versión 1.0 | 22 de octubre de 2026 | Colombia
 
+Actualización del 23 de octubre: consultar la [revisión para iniciar el backend](REVISION-ARQUITECTURA-BACKEND.md), el [modelo transaccional](diseno/MODELO-TRANSACCIONAL.md) y el [procedimiento de recuperación](operacion/RECUPERACION.md). Esos documentos amplían el diseño y registran las decisiones confirmadas de un local, ventas en línea y activación segura para cuentas reales. El PDF conserva la instantánea original del día 22.
+
 ## Arquitectura de la plataforma
 
 > Margaret necesita una aplicación web con un servidor central y una base de datos compartida. La autorización de una venta debe decidirse en el servidor, con el turno y el inventario vigentes.
@@ -90,7 +92,7 @@ Un administrador o gerente registra nombre completo, cédula, correo, celular y 
 
 Se crea un acceso en estado de activación. El primer ingreso obliga a cambiar la contraseña; hasta entonces no permite vender. Tras activarse, la sesión recibe únicamente los permisos efectivos y el alcance del local. Retirar una cuenta revoca sus sesiones y mantiene ventas, cierres y nómina.
 
-> El demo usa la cédula como clave temporal por el requisito acordado. Es predecible. Para producción se propone sustituirla por una activación aleatoria, de un solo uso y con vencimiento; este cambio requiere acordarse antes de implementar. No desplegar las cuentas de prueba con clave 1234.
+> Decisión confirmada el 23 de octubre: las cuentas reales usarán activación aleatoria, de un solo uso y con vencimiento, seguida de la creación de contraseña personal. Reemplaza el requisito anterior de cédula como clave temporal, que todavía aparece en el demo histórico. No migrar esas claves ni desplegar las cuentas de prueba con clave 1234.
 
 Ningún gerente puede ampliar sus propios privilegios o conceder permisos que no puede delegar. Toda autorización combina rol, local, recurso y estado de la operación; ocultar un botón no sustituye este control. [S4]
 
@@ -313,4 +315,4 @@ Fuentes oficiales consultadas el 22 de octubre de 2026. Las recomendaciones de c
 
 ### Decisiones que faltan antes de construir
 
-Confirmar la ruta fiscal con el RUT del negocio; proveedor o implementación propia; impuestos y redondeos; cambio de clave temporal; restricción por horario; permisos delegables; costo/infraestructura y responsables del servicio. Validar RPO/RTO y retención con capacidad y presupuesto. No se han fijado fechas de entrega ni costos comerciales sin esa definición.
+Confirmar la ruta fiscal con el RUT del negocio; proveedor o implementación propia; impuestos y redondeos; restricción por horario; permisos delegables; costo/infraestructura y responsables del servicio. Validar RPO/RTO y retención con capacidad y presupuesto. La activación segura, el primer local y las ventas en línea quedaron confirmados el 23 de octubre. No se han fijado fechas de entrega ni costos comerciales sin esa definición.
