@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { root, validateVersion } from './environment.mjs';
-import { remoteBundle } from './site.mjs';
+import { remoteBundle, github, assertPromotion } from './site.mjs';
 if (!process.env.GITHUB_EVENT_PATH || process.env.GITHUB_EVENT_NAME !== 'pull_request') process.exit(0);
 const event = JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH, 'utf8'));
 const pr = event.pull_request;
@@ -12,6 +12,7 @@ const testing = await remoteBundle('pruebas/');
 if (testing.metadata.commit !== pr.head.sha || testing.metadata.sourceTree !== git('rev-parse', pr.head.sha + '^{tree}')) throw new Error('Publica y valida este commit de develop en pruebas antes de promoverlo.');
 const before = JSON.parse(git('show', `${pr.base.sha}:package.json`)).version;
 const after = JSON.parse(git('show', `${pr.head.sha}:package.json`)).version;
+assertPromotion({ environment: 'production', sourceTree: git('rev-parse', pr.head.sha + '^{tree}'), version: after }, testing.metadata, await github('/actions/runs/' + testing.metadata.workflowRun));
 const changed = git('diff', '--name-only', `${pr.base.sha}...${pr.head.sha}`).split('\n');
 if (changed.some(p => /^(src\/|assets\/|scripts\/|environments\/|\.github\/workflows\/|package)/.test(p))) {
   validateVersion(after);
