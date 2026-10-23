@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { root } from '../scripts/environment.mjs';
-import { renderSite, siteConfig, digest, validateBundle, assertPromotion } from '../scripts/site.mjs';
+import { renderSite, siteConfig, digest, validateBundle, assertPromotion, allowedGitHubPath } from '../scripts/site.mjs';
+test('el token de publicación solo puede consultar las ramas y ejecuciones previstas', () => {
+  for (const path of ['/git/ref/heads/main', '/git/ref/heads/develop', '/actions/runs/123']) assert.ok(allowedGitHubPath(path));
+  for (const path of ['//evil.example', '/actions/runs/123/../../secrets', '/actions/runs/123?redirect=evil', '/git/ref/heads/otra', '/actions/runs/abc']) assert.equal(allowedGitHubPath(path), false);
+});
 test('pruebas tiene datos, respaldos y bloqueo de escritura separados del sitio estable', async () => {
   const config = await siteConfig();
   const source = await readFile(resolve(root, 'demo/index.html'), 'utf8');
