@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:pages": "npm run build && node scripts/prepare-pages.mjs",
     "test": "node scripts/test.mjs",
     "start": "npm run dev",
     "dev": "node --env-file-if-exists=.env.local scripts/serve.mjs",
