@@ -9,5 +9,7 @@
   "deploymentEnabled": false,
   "operationalReady": false,
   "server": { "enabled": false, "host": null, "port": null },
-  "pending": ["hosting", "domain", "central_backend", "server_authentication", "shared_database", "operational_restore_test"]
+  "frontend": { "provider": "github-pages", "url": "https://javidez89.github.io/margaret-pos/", "customDomain": null },
+  "backend": { "provider": "supabase", "enabled": false, "projectRef": null, "url": null },
+  "pending": ["supabase_project", "central_backend", "server_authentication", "shared_database", "operational_restore_test", "pages_usage_review"]
 }

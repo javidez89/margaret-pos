@@ -8,6 +8,7 @@ on:
         type: string
 permissions:
   contents: read
+  actions: read
 jobs:
   prepare:
     if: github.ref == 'refs/heads/main'
@@ -28,7 +29,13 @@ jobs:
       - run: node scripts/check-version.mjs "$RELEASE_TAG"
       - run: npm test
       - run: npm run check:security
+      - run: npm audit --audit-level=high
+      - name: Registrar Chrome incluido en la imagen de GitHub
+        run: google-chrome --version
+      - run: npm run test:e2e
       - run: node scripts/prepare-pages.mjs production
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: candidate-production
@@ -67,7 +74,7 @@ jobs:
         with:
           name: candidate-production
           path: .build/candidate
-      - name: Exigir código aprobado en pruebas y conservar su vista
+      - name: Exigir QA del mismo código y preparar solo producción
         run: node scripts/assemble-site.mjs production
         env:
           GH_TOKEN: ${{ github.token }}

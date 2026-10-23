@@ -1,13 +1,15 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "baseUrl": "https://javidez89.github.io/margaret-pos/",
   "operationalReady": false,
   "testing": {
-    "branch": "develop", "path": "pruebas/", "label": "PRUEBAS · DEMO",
+    "branch": "develop", "path": "pruebas/", "label": "LOCAL · PRUEBAS",
+    "location": "local", "published": false, "url": "http://127.0.0.1:4173",
     "storageKey": "margaret-testing-v1", "backupStore": "margaret-testing-backups-v1", "writeLock": "margaret-testing-write-v1"
   },
   "production": {
     "branch": "main", "path": "", "label": "ESTABLE · DEMO",
+    "location": "github-pages", "published": true,
     "storageKey": "margaret-demo-v1", "backupStore": "margaret-daily-backups-v1", "writeLock": "margaret-platform-write-v1"
   }
 }

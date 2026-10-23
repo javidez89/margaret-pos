@@ -7,11 +7,9 @@ const expected = JSON.parse(await readFile(resolve(root, '.artifacts/publication
 let lastError;
 for (let attempt = 0; attempt < 12; attempt++) {
   try {
-    for (const target of ['production', 'testing']) {
-      const remote = await remoteBundle(target === 'testing' ? 'pruebas/' : '');
-      if (remote.metadata.sha256 !== expected[target].sha256 || remote.metadata.commit !== expected[target].commit) throw new Error(`El ambiente ${target} todavía no sirve el paquete esperado.`);
-    }
-    console.log('HTTPS, versión e integridad de ambos ambientes verificados.');
+    const remote = await remoteBundle('');
+    if (remote.metadata.sha256 !== expected.production.sha256 || remote.metadata.commit !== expected.production.commit) throw new Error('Producción todavía no sirve el paquete esperado.');
+    console.log('HTTPS, versión e integridad de producción verificados; pruebas permanece local.');
     process.exit(0);
   } catch (error) { lastError = error; await setTimeout(5000); }
 }

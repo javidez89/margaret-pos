@@ -2,6 +2,8 @@
 
 23 de octubre de 2026 · Base revisada: `b26440efa8b6164c7e5e788d4b5cab9b6e75be94` · Demo 0.3.1.
 
+**Diseño anterior:** el usuario eligió después GitHub Pages + Supabase sin NestJS ni otro alojamiento, con pruebas locales. Consultar la [arquitectura vigente](ARQUITECTURA-VIGENTE.md). Los hallazgos del demo y las reglas de negocio siguen siendo referencia; componentes, sesión BFF y publicación de pruebas de esta propuesta quedaron sustituidos.
+
 ## Dictamen y decisiones
 
 La propuesta React + TypeScript, NestJS y PostgreSQL es adecuada para el primer local. Recomendamos mantener un **monolito modular**, con API y trabajador como procesos separados del mismo proyecto. El siguiente trabajo debe construir una primera operación completa con persistencia central; el HTML actual sigue siendo la referencia funcional y visual.

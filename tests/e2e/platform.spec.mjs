@@ -9,7 +9,7 @@ async function login(page, username) {
 }
 test('rechaza clave incorrecta y permite ingresar al administrador del demo', async ({ page }) => {
   await page.goto('/pruebas/');
-  await expect(page.getByText(/PRUEBAS · DEMO/)).toBeVisible();
+  await expect(page.getByText(/LOCAL · PRUEBAS/)).toBeVisible();
   await page.locator('#username').fill('admin');
   await page.locator('#password').fill('incorrecta');
   await page.locator('#login-form button[type=submit]').click();

@@ -2,6 +2,8 @@
 
 Versión 1.0 | 22 de octubre de 2026 | Colombia
 
+**Antecedente de diseño:** la [arquitectura vigente](ARQUITECTURA-VIGENTE.md) registra la decisión posterior de usar GitHub Pages + Supabase y pruebas locales, sin NestJS. Prevalece para implementación; este documento y su PDF conservan el diseño original y sus reglas de negocio.
+
 Actualización del 23 de octubre: consultar la [revisión para iniciar el backend](REVISION-ARQUITECTURA-BACKEND.md), el [modelo transaccional](diseno/MODELO-TRANSACCIONAL.md) y el [procedimiento de recuperación](operacion/RECUPERACION.md). Esos documentos amplían el diseño y registran las decisiones confirmadas de un local, ventas en línea y activación segura para cuentas reales. El PDF conserva la instantánea original del día 22.
 
 La [comparación de GitHub, Supabase y API](DECISION-GITHUB-SUPABASE.md) evalúa servicios gestionados, costos y riesgos. Recomienda considerar Supabase conservando la API modular; la selección y contratación siguen pendientes. La identidad gestionada sustituiría la implementación propia de contraseñas, sin duplicarla.

@@ -2,6 +2,8 @@
 
 Diseño propuesto · 23 de octubre de 2026 · Complemento de la [revisión del backend](../REVISION-ARQUITECTURA-BACKEND.md). No es una migración ejecutada ni una API disponible.
 
+La [arquitectura vigente](../ARQUITECTURA-VIGENTE.md) aplica estas reglas mediante Supabase Edge Functions/RPC, con pruebas locales. No implementar el BFF NestJS ni sesiones opacas propias de propuestas anteriores. Los endpoints de este documento son contratos ilustrativos que deben adaptarse al backend Supabase.
+
 La [evaluación de Supabase](../DECISION-GITHUB-SUPABASE.md) añade una opción de identidad gestionada: en ese caso, `users`/perfiles referencian el identificador de Auth y sus contraseñas/tokens de activación son responsabilidad del proveedor. Adaptar las entidades de acceso y la sesión de aplicación al modelo elegido; no duplicar hashes ni tratar nombres de tablas de este diseño como una migración ya aprobada.
 
 ## Convenciones y alcance

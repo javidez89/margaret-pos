@@ -2,6 +2,8 @@
 
 Diseño y procedimiento propuestos · 23 de octubre de 2026. Complementa la [revisión del backend](../REVISION-ARQUITECTURA-BACKEND.md). No hay un servicio de copias de servidor ni una recuperación PostgreSQL ejecutada todavía.
 
+Decisión vigente: [GitHub Pages + Supabase](../ARQUITECTURA-VIGENTE.md), con pruebas locales. Aplicar este procedimiento a servicios gestionados/tareas de Supabase, sin presuponer un trabajador NestJS ni un servidor contratado aparte. La copia externa independiente todavía requiere acordar un medio fuera de la cuenta del proveedor.
+
 Si se elige Supabase, adaptar los pasos al servicio gestionado conforme a la [evaluación de proveedor](../DECISION-GITHUB-SUPABASE.md#respaldos-y-costo-condiciones-reales). No presuponer acceso a sus archivos físicos/WAL ni que restaurar DB recupere objetos o configuración de Auth. Comprobar explícitamente identidades, roles, archivos y configuración; un dump limitado al esquema de negocio no equivale a recuperar la plataforma.
 
 ## Qué copia puede descargar cada persona

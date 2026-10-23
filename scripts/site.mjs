@@ -10,7 +10,12 @@ export async function siteConfig() {
   if (config.baseUrl !== 'https://javidez89.github.io/margaret-pos/') throw new Error('El publicador solo admite el sitio HTTPS de este repositorio.');
   return config;
 }
-export function allowedGitHubPath(path) { return /^\/(?:git\/ref\/heads\/(?:main|develop)|actions\/runs\/[1-9]\d*)$/.test(path); }
+export function allowedGitHubPath(path) {
+  return path === '/actions/workflows/validate.yml/runs?branch=develop&event=push&per_page=100' ||
+    /^\/git\/ref\/heads\/(?:main|develop)$/.test(path) ||
+    /^\/git\/commits\/[a-f0-9]{40}$/.test(path) ||
+    /^\/actions\/runs\/[1-9]\d*(?:\/jobs\?per_page=100)?$/.test(path);
+}
 export function siteTarget(config, target) {
   if (!['testing', 'production'].includes(target)) throw new Error('El destino debe ser testing o production.');
   return config[target];
@@ -35,7 +40,7 @@ export async function candidate(target) {
   const config = await siteConfig();
   const html = renderSite(await readFile(resolve(root, 'demo/index.html'), 'utf8'), target, config);
   const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
-  const metadata = { schemaVersion: 2, mode: 'public-demo', environment: target, version: await projectVersion(), commit: git('rev-parse', 'HEAD'), sourceTree: git('rev-parse', 'HEAD^{tree}'), sha256: digest(html), workflowRun: process.env.GITHUB_RUN_ID || null, operationalReady: false, storage: 'browser-local' };
+  const metadata = { schemaVersion: 3, mode: 'public-demo', environment: target, version: await projectVersion(), commit: git('rev-parse', 'HEAD'), sourceTree: git('rev-parse', 'HEAD^{tree}'), sha256: digest(html), workflowRun: process.env.GITHUB_RUN_ID || null, operationalReady: false, storage: 'browser-local' };
   return { html, metadata };
 }
 export async function writeBundle(directory, bundle) {
@@ -48,12 +53,8 @@ export function validateBundle(bundle) {
   if (bundle.metadata.operationalReady !== false) throw new Error('Este publicador solo admite el demo.');
   return bundle;
 }
-export function assertPromotion(production, testing, run) {
-  if (production.environment !== 'production' || testing.environment !== 'testing' || !testing.sourceTree || production.sourceTree !== testing.sourceTree || production.version !== testing.version) throw new Error('La versión estable debe corresponder exactamente al código validado en pruebas.');
-  if (String(run.id) !== String(testing.workflowRun) || run.conclusion !== 'success' || run.status !== 'completed' || run.head_branch !== 'develop' || run.head_sha !== testing.commit || run.path !== '.github/workflows/pages.yml') throw new Error('La publicación de pruebas no tiene una ejecución de QA válida y completada.');
-}
 export async function remoteBundle(path = '', optional = false) {
-  if (!['', 'pruebas/'].includes(path)) throw new Error('Ruta pública no permitida.');
+  if (path !== '') throw new Error('Solo producción tiene una ruta pública; las pruebas son locales.');
   const config = await siteConfig();
   const read = async name => {
     const response = await fetch(config.baseUrl + path + name + '?verify=' + Date.now(), { redirect: 'error', signal: AbortSignal.timeout(30000), headers: { 'Cache-Control': 'no-cache' } });

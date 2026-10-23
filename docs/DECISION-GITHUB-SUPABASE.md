@@ -2,6 +2,8 @@
 
 23 de octubre de 2026 · Evaluación de arquitectura, sin contratación ni creación de infraestructura.
 
+**Decisión posterior del usuario:** usar solo GitHub Pages y Supabase, con pruebas locales. La [arquitectura vigente](ARQUITECTURA-VIGENTE.md) sustituye la recomendación NestJS de este análisis. Las alternativas y precios siguientes se conservan como antecedente; los dos proyectos cloud de pruebas/producción no son un requisito vigente.
+
 ## Recomendación
 
 **Mantener GitHub para código, versiones y automatización; usar una base PostgreSQL central gestionada. Supabase es el candidato recomendado, acompañado de la API modular de Margaret.** No se debe usar el repositorio como base de datos de ventas.

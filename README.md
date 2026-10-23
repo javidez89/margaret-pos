@@ -4,7 +4,7 @@ Demo funcional de administración y punto de venta para Margaret. Conserva la id
 
 ## Ver el demo
 
-**[Pruebas](https://javidez89.github.io/margaret-pos/pruebas/)** · **[Versión estable](https://javidez89.github.io/margaret-pos/)** — demos públicos con datos separados en cada navegador. Consulta el [flujo vigente de desarrollo, QA y DevOps](docs/GOBIERNO-DESARROLLO.md).
+**[URL objetivo de producción](https://javidez89.github.io/margaret-pos/)** — actualmente sirve el demo. **Pruebas: local**, en `http://127.0.0.1:4173`. Consulta la [arquitectura vigente GitHub Pages + Supabase](docs/ARQUITECTURA-VIGENTE.md) y el [flujo de desarrollo y QA](docs/GOBIERNO-DESARROLLO.md).
 
 Abre [demo/index.html](demo/index.html) en tu navegador, o usa Node.js 24:
 
@@ -31,7 +31,7 @@ Los datos se guardan en el navegador y origen donde se abre el demo. Esta copia 
 
 La emisión DIAN y los pagos electrónicos reales no están integrados. El código Hash del voucher es un identificador interno. La sincronización se limita a pestañas del mismo archivo/origen y navegador; no hay servidor central implementado.
 
-La plataforma operativa está diseñada para ingresar por una URL HTTPS desde cualquier lugar, en computador o celular, con cuentas y datos centrales. El dominio y alojamiento todavía no se han seleccionado. Consulta el [requisito de acceso por Internet](docs/REVISION-ARQUITECTURA-BACKEND.md#acceso-por-url-desde-cualquier-lugar).
+La decisión vigente es GitHub Pages para la interfaz y Supabase para backend, cuentas y datos centrales. El dominio propio es opcional para más adelante. No se añadirá NestJS ni otro alojamiento. Las funciones y la base de Margaret todavía no están implementadas; la [arquitectura vigente](docs/ARQUITECTURA-VIGENTE.md) describe seguridad, límites de Pages y criterios de habilitación.
 
 ## Estructura
 
@@ -47,7 +47,7 @@ docs/                       Guías, arquitectura y evidencia de validación
 
 ## Compilar y validar
 
-El desarrollo entra por ramas de trabajo y PR a `develop`, donde se publica el ambiente de pruebas después de QA. `main` recibe promociones de develop; la vista estable requiere inicio manual y aprobación en `production`. La producción operativa sigue bloqueada hasta implementar el backend. Consulta [el gobierno del desarrollo](docs/GOBIERNO-DESARROLLO.md) y [las instrucciones del repositorio](AGENTS.md).
+El desarrollo entra por ramas de trabajo y PR a `develop`, con QA local y CI automático sin sitio público de pruebas. `main` recibe promociones del contenido exacto validado; Pages requiere inicio manual y aprobación en `production`. La producción operativa sigue bloqueada hasta implementar Supabase y cumplir los criterios pendientes. Consulta [el gobierno del desarrollo](docs/GOBIERNO-DESARROLLO.md) y [las instrucciones del repositorio](AGENTS.md).
 
 ```sh
 npm ci --ignore-scripts
@@ -64,8 +64,9 @@ Las pruebas verifican exportaciones, restauración completa de respaldos, permis
 
 ## Documentación
 
+- [Arquitectura vigente: GitHub Pages + Supabase y pruebas locales](docs/ARQUITECTURA-VIGENTE.md) — decisión actual del usuario; prevalece sobre las propuestas anteriores.
 - [Revisión para iniciar el backend: hallazgos, decisiones y plan](docs/REVISION-ARQUITECTURA-BACKEND.md) — actualización del 23 de octubre de 2026.
-- [Evaluación de GitHub, Supabase y API: ventajas, riesgos y costos](docs/DECISION-GITHUB-SUPABASE.md) — recomendación de proveedor pendiente de elección.
+- [Evaluación de alternativas, ventajas, riesgos y costos](docs/DECISION-GITHUB-SUPABASE.md) — antecedente; la opción NestJS fue descartada para este alcance.
 - [Modelo transaccional, base de datos y contratos iniciales](docs/diseno/MODELO-TRANSACCIONAL.md).
 - [Respaldos y recuperación operativa del futuro backend](docs/operacion/RECUPERACION.md).
 - [Arquitectura, seguridad y flujo end to end](docs/Margaret-arquitectura-seguridad-end-to-end.md).
