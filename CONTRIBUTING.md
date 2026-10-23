@@ -8,6 +8,6 @@
 6. Envía una solicitud de revisión a `develop`. El flujo automático valida compilación, versión, separación de ambientes y pruebas.
 7. Promueve versiones revisadas de `develop` a `main` mediante otra solicitud de cambio. Actualiza versión y CHANGELOG, vuelve a compilar y prepara un borrador desde el flujo manual de GitHub.
 
-Lee [la política de ambientes y versionamiento](docs/AMBIENTES-Y-VERSIONAMIENTO.md), incluida la limitación del plan actual para imponer protecciones de ramas. No sobrescribas etiquetas existentes.
+Lee [el gobierno del desarrollo](docs/GOBIERNO-DESARROLLO.md) y [AGENTS.md](AGENTS.md). Main y develop exigen PR y los controles validate, security y qa-browser. Publicar pruebas no modifica la versión estable; esta última requiere aprobación manual. No sobrescribas etiquetas existentes.
 
 Las guías en `docs/` mantienen evidencia histórica de las pruebas del demo. Los resultados de una ejecución nueva se guardan en `.artifacts/test-results/` y no deben reemplazarse sin revisar la documentación.

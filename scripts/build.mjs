@@ -15,12 +15,15 @@ for (const [token, path] of [['__LOGO__', 'logo.png'], ['__ICON__', 'icon.png']]
   const bytes = await readFile(resolve(root, 'assets/brand', path));
   source = source.replaceAll(token, `data:image/png;base64,${bytes.toString('base64')}`);
 }
-const match = source.match(/<script>([\s\S]*?)<\/script>/);
-if (!match) throw new Error('No se encontró el script de la aplicación');
+// Extrae el bloque de la plantilla controlada; no es un filtro de HTML de usuarios.
+const scriptStart = source.indexOf('<script>');
+const scriptEnd = source.indexOf('</script>', scriptStart + 8);
+if (scriptStart < 0 || scriptEnd < 0) throw new Error('No se encontró el script de la aplicación');
+const applicationScript = source.slice(scriptStart + 8, scriptEnd);
 await mkdir(resolve(root, '.build'), { recursive: true });
 await mkdir(resolve(root, 'demo'), { recursive: true });
 const checkPath = resolve(root, '.build/demo-check.js');
-await writeFile(checkPath, match[1], 'utf8');
+await writeFile(checkPath, applicationScript, 'utf8');
 const checked = spawnSync(process.execPath, ['--check', checkPath], { stdio: 'inherit' });
 if (checked.status !== 0) process.exit(checked.status || 1);
 await writeFile(resolve(root, 'demo/index.html'), source, 'utf8');

@@ -4,7 +4,7 @@ Demo funcional de administración y punto de venta para Margaret. Conserva la id
 
 ## Ver el demo
 
-**[Abrir Margaret en GitHub Pages](https://javidez89.github.io/margaret-pos/)** — demo público para revisión, con datos guardados en cada navegador. Consulta la [guía de publicación](docs/GITHUB-PAGES.md).
+**[Pruebas](https://javidez89.github.io/margaret-pos/pruebas/)** · **[Versión estable](https://javidez89.github.io/margaret-pos/)** — demos públicos con datos separados en cada navegador. Consulta el [flujo vigente de desarrollo, QA y DevOps](docs/GOBIERNO-DESARROLLO.md).
 
 Abre [demo/index.html](demo/index.html) en tu navegador, o usa Node.js 24:
 
@@ -12,7 +12,7 @@ Abre [demo/index.html](demo/index.html) en tu navegador, o usa Node.js 24:
 npm start
 ```
 
-La dirección local será `http://127.0.0.1:4173`. No hay dependencias externas de npm.
+La dirección local será `http://127.0.0.1:4173`. El HTML autónomo no necesita dependencias de ejecución. Las herramientas de desarrollo y QA se instalan con `npm ci --ignore-scripts`.
 
 Las cuentas iniciales de demostración son `admin`, `gerente`, `vendedor1` y `vendedor2`; su clave de prueba es `1234`. Son accesos simulados para validación. Las personas nuevas deben cambiar su contraseña temporal al ingresar.
 
@@ -45,19 +45,20 @@ docs/                       Guías, arquitectura y evidencia de validación
 
 ## Compilar y validar
 
-El desarrollo y las pruebas pertenecen al ambiente **local** y a la rama `develop`. `main` conserva versiones estables y publica el demo de revisión en GitHub Pages. El ambiente `production` sigue reservado, sin backend operativo. Consulta [ambientes y versionamiento](docs/AMBIENTES-Y-VERSIONAMIENTO.md).
+El desarrollo entra por ramas de trabajo y PR a `develop`, donde se publica el ambiente de pruebas después de QA. `main` recibe promociones de develop; la vista estable requiere inicio manual y aprobación en `production`. La producción operativa sigue bloqueada hasta implementar el backend. Consulta [el gobierno del desarrollo](docs/GOBIERNO-DESARROLLO.md) y [las instrucciones del repositorio](AGENTS.md).
 
 ```sh
 npm ci --ignore-scripts
 npm run build
 npm test
+npm run check:security
 ```
 
 El comando `npm run dev` lee `.env.local` cuando existe. Las configuraciones de ejemplo están en `environments/`; no contienen secretos. El flujo manual **Preparar versión** genera un borrador de versión preliminar desde main con archivos verificables, sin realizar un despliegue externo.
 
 La compilación usa la plantilla y los dos archivos de marca para generar el HTML autónomo. **Edita la plantilla y vuelve a compilar**, en lugar de modificar únicamente el archivo generado.
 
-Las pruebas verifican exportaciones, restauración completa de respaldos, permisos y aprobación de turnos, ventas concurrentes y devoluciones. Se ejecutan en sesiones aisladas con almacenamiento simulado, sin abrir ni modificar el navegador del usuario. No sustituyen la prueba física de impresora/lector ni la habilitación fiscal. Sus resultados y respaldos de ensayo se generan en `.artifacts/`, excluido de Git.
+Las pruebas verifican exportaciones, restauración completa de respaldos, permisos y aprobación de turnos, ventas concurrentes, devoluciones y promoción del código validado. La suite de negocio usa almacenamiento simulado y la suite `npm run test:e2e` usa Chromium con perfiles efímeros. No operan sobre el navegador personal ni sustituyen hardware físico o habilitación fiscal. Los informes de cada PR quedan en Actions y los resultados locales en `.artifacts/`, excluido de Git.
 
 ## Documentación
 

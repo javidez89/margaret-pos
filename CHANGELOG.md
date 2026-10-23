@@ -2,6 +2,22 @@
 
 Este proyecto usa versiones MAJOR.MINOR.PATCH. Las versiones 0.x todavía son de desarrollo y validación.
 
+## 0.3.1 - 2026-10-23
+
+- Extracción explícita del JavaScript de la plantilla para su validación, sin regex de filtrado HTML.
+- URL pública y rutas de consulta GitHub limitadas; rechazo de redirecciones y regresión para rutas no permitidas.
+- Revisión documentada de los avisos iniciales de CodeQL y de las transferencias previstas del publicador.
+
+## 0.3.0 - 2026-10-23
+
+- Ambiente de pruebas en develop y vista estable con promoción manual desde main.
+- Almacenamiento, respaldos y bloqueo de escritura separados; la vista estable conserva sus datos existentes.
+- Promoción ligada al contenido exacto, versión y ejecución de QA aprobada; preservación íntegra del otro ambiente.
+- CI de negocio, seguridad y Chromium, informes de evidencia y comprobación posterior al despliegue.
+- Protecciones obligatorias de ramas, aprobación del ambiente production y reglas de etiquetas sin sobrescritura.
+- Escaneo de secretos, dependencias y CodeQL; actualizaciones propuestas por Dependabot.
+- Instrucciones del repositorio y guía de responsabilidades de desarrollo, UX, QA, seguridad, DevOps y versión.
+
 ## 0.2.0 - 2026-10-22
 
 - Configuración explícita de ambientes local y production, con datos de prueba solo en local.
