@@ -1,5 +1,7 @@
 # Demo público para revisión
 
+> El sitio ahora tiene [pruebas](https://javidez89.github.io/margaret-pos/pruebas/) y [versión estable](https://javidez89.github.io/margaret-pos/). Consulta [el flujo vigente](GOBIERNO-DESARROLLO.md); la descripción siguiente corresponde a la publicación inicial.
+
 URL: **https://javidez89.github.io/margaret-pos/**
 
 GitHub Pages publica el demo estático desde `main`. No requiere descargar el repositorio ni abrir un archivo local. Las cuentas de demostración y su alcance están en el README. La página identifica **DEMO · PRUEBAS** y conserva la identidad corporativa.

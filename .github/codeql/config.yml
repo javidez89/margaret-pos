@@ -1,0 +1,6 @@
+name: Margaret JavaScript
+paths:
+  - scripts
+  - .build/demo-check.js
+queries:
+  - uses: security-extended

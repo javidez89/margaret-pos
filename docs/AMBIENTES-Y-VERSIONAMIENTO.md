@@ -1,5 +1,7 @@
 # Ambientes y versionamiento de Margaret
 
+> Guía histórica de la configuración inicial. El flujo vigente de pruebas y versión estable, protecciones y aprobación está en [Gobierno de desarrollo](GOBIERNO-DESARROLLO.md).
+
 Configuración de `javidez89/margaret-pos`. Preparada el 22 de octubre de 2026; repositorio público y demo en GitHub Pages desde el 23 de octubre. Consulta [el sitio de revisión](GITHUB-PAGES.md).
 
 ## Los dos ambientes
