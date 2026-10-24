@@ -312,18 +312,19 @@ async function registerShiftSale(input){return businessWrite(async()=>{
 
 
 // Monetary records use COP cents. Unit averages may have extra decimals; movements never do.
+const MONEY_LIMIT_CENTS=1000000000000000;
 function moneyCents(value,label='Valor',max=1000000000000){
  if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>max)throw Error(label+': ingresa un valor válido.');
- const cents=Math.round(value*100);
- if(!Number.isSafeInteger(cents)||Math.abs(value*100-cents)>0.000001)throw Error(label+': usa como máximo dos decimales.');
- return cents;
+ const text=String(value);if(!/^\d+(?:\.\d{1,2})?$/.test(text))throw Error(label+': usa como máximo dos decimales.');
+ const [whole,fraction='']=text.split('.'),cents=Number(BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0')));
+ if(!Number.isSafeInteger(cents)||cents>MONEY_LIMIT_CENTS)throw Error(label+': el importe supera el límite de cálculo.');return cents;
 }
-function roundedCents(value){const n=Math.round((value+Number.EPSILON)*100);if(!Number.isSafeInteger(n))throw Error('El importe supera el límite de cálculo seguro.');return n;}
-function moneySum(values){let cents=0;for(const value of values){cents+=roundedCents(value);if(!Number.isSafeInteger(cents))throw Error('El acumulado supera el límite de cálculo seguro.');}return cents/100;}
+function roundedCents(value){const n=Math.round((value+Number.EPSILON)*100);if(!Number.isSafeInteger(n)||Math.abs(n)>MONEY_LIMIT_CENTS)throw Error('El importe supera el límite de cálculo seguro.');return n;}
+function moneySum(values){let cents=0;for(const value of values){cents+=roundedCents(value);if(!Number.isSafeInteger(cents)||Math.abs(cents)>MONEY_LIMIT_CENTS)throw Error('El acumulado supera el límite de cálculo seguro.');}return cents/100;}
 function proportionalCents(total,part,whole){if(!Number.isSafeInteger(total)||!Number.isSafeInteger(part)||!Number.isSafeInteger(whole)||part<0||whole<=0||part>whole)throw Error('No se puede distribuir el importe.');return Number((BigInt(total)*BigInt(part)*2n+BigInt(whole))/(BigInt(whole)*2n));}
 function validBusinessDate(value){if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)||Number(value.slice(0,4))<2000||Number(value.slice(0,4))>9999||!Number.isFinite(new Date(value+'T12:00:00Z').getTime())||new Date(value+'T12:00:00Z').toISOString().slice(0,10)!==value)throw Error('Selecciona una fecha válida.');return value;}
 function stockValueCents(p){if(p.costPending||p.inventoryValue===null)return null;const value=p.inventoryValue??p.stock*p.cost;if(!Number.isFinite(value)||value<0)throw Error('El costo del inventario no es válido.');return roundedCents(value);}
-function setStockValue(p,stock,value){if(value!==null&&(!Number.isSafeInteger(value)||value<0))throw Error('El valor de inventario supera el límite de cálculo seguro.');if(!Number.isSafeInteger(stock)||stock<0||stock>1000000000)throw Error('La cantidad de inventario supera el límite permitido.');p.stock=stock;p.inventoryValue=value===null?null:value/100;p.costPending=value===null;if(value!==null&&stock>0)p.cost=value/100/stock;p.referenceCost=p.cost;}
+function setStockValue(p,stock,value){if(value!==null&&(!Number.isSafeInteger(value)||value<0||value>MONEY_LIMIT_CENTS))throw Error('El valor de inventario supera el límite de cálculo seguro.');if(!Number.isSafeInteger(stock)||stock<0||stock>1000000000)throw Error('La cantidad de inventario supera el límite permitido.');p.stock=stock;p.inventoryValue=value===null?null:value/100;p.costPending=value===null;if(value!==null&&stock>0)p.cost=value/100/stock;p.referenceCost=p.cost;}
 function businessLog(action){db.logs.unshift({at:now(),who:user.id,action});}
 function requireBusinessPermission(permission,managerOnly=false){if(!user?.active||user.deleted||user.mustChangePassword||!hasPerm(permission)||managerOnly&&!['Administrador','Gerente'].includes(user.role))throw Error('Tu usuario no tiene permiso para registrar esta operación.');}
 async function businessWrite(action){return withShiftWrite(async()=>{const before=JSON.parse(JSON.stringify(db)),raw=localStorage.getItem(KEY),who=user?.id;try{const result=await action();commitShiftWrite(before,raw,who);return result;}catch(e){if(localStorage.getItem(KEY)===raw){db=before;user=db.users.find(u=>u.id===who)||null;}else syncSharedState(true);throw e;}});}

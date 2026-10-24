@@ -101,6 +101,34 @@ async function boundaries() {
   a.setUser('vendedor2');
   await rejectsUnchanged(h, () => a.purchase({ ...purchase, requestId: 'forbidden-buy' }), 'Vendedor no compra');
   await rejectsUnchanged(h, () => a.payroll({ ...payroll, requestId: 'forbidden-payroll' }), 'Vendedor no paga nómina');
+
+  a.setUser('admin');
+  const large = await a.purchase({ ...purchase, requestId: 'large-valid', product: 4, format: 'unit', cost: 999999999.99 });
+  eq(cents(large.total), 99999999999n, 'Importe grande válido conserva sus centavos');
+  await rejectsUnchanged(h, () => a.purchase({ ...purchase, requestId: 'overflow-total', qty: 1000000, cost: 1000000000 }), 'Total fuera del límite permitido');
+  await a.purchase({ ...purchase, requestId: 'mixed-formats', format: 'unit', cost: 10 });
+  const mixed = await a.registerShiftSale({ shiftId: 1, cart: { '1:unit': 1, '1:pack': 1 }, method: 'Transferencia' });
+  eq(cents(mixed.total), 20402n, 'Unidad y paca conservan precios separados');
+  eq(cents(mixed.costTotal), 11001n, 'Venta mixta consume todo el costo restante');
+  eq(a.db().products[0].stock, 0, 'Venta mixta consume 31 unidades');
+  await rejectsUnchanged(h, () => a.requestReturn(mixed.id, [{ lineIndex: '0', qty: 1 }], 'Índice inválido', 'Transferencia'), 'Índice debe ser entero');
+  a.db().products[0].price = 999; a.db().products[0].packPrice = 999; a.persist();
+  const entire = await a.requestReturn(mixed.id, [{ lineIndex: 0, qty: 1 }, { lineIndex: 1, qty: 30 }], 'QA devolución total sin reintegro', 'Efectivo', false);
+  a.approveReturn(entire.id, false); const paidEntire = await a.payReturn(entire.id, 'Efectivo');
+  eq(cents(paidEntire.total), 20402n, 'Devolución global de varios renglones');
+  eq(paidEntire.costRecovered, 0, 'Mercancía dañada no recupera costo');
+  eq(a.db().products[0].stock, 0, 'Mercancía dañada no recupera stock');
+
+  // Legacy unknown cost remains unknown after sale, refund and stock recovery.
+  Object.assign(a.db().products[2], { stock: 1, cost: 0, costPending: true, inventoryValue: null }); a.persist();
+  const unknown = await a.registerShiftSale({ shiftId: 1, cart: { '3:unit': 1 }, method: 'Transferencia' });
+  eq(unknown.costTotal, null, 'No inventar costo histórico de venta');
+  const unknownReturn = await a.requestReturn(unknown.id, [{ lineIndex: 0, qty: 1 }], 'QA costo desconocido', 'Transferencia', true);
+  a.approveReturn(unknownReturn.id, true); const recoveredUnknown = await a.payReturn(unknownReturn.id, 'Transferencia', 'QA-UNKNOWN');
+  eq(recoveredUnknown.costRecoveryUnknown, true, 'Reintegro conserva costo desconocido');
+  eq(a.db().products[2].costPending, true, 'Ficha recuperada no presenta costo cero como conocido');
+  a.setFilter({ period: 'global', user: 'all' }); eq(a.reportMetrics(a.reportData()).missing, 2, 'Reporte marca venta y reintegro sin costo');
+  eq(JSON.stringify((await a.inspectBackup(JSON.stringify(await a.makeBackup()))).data), JSON.stringify(a.db()), 'Respaldo preserva costos desconocidos');
   return { cases: assertions, partialRefunds: 30 };
 }
 
@@ -237,12 +265,15 @@ async function history() {
   a.setUser('admin');
   const backup = await a.makeBackup(), inspected = await a.inspectBackup(JSON.stringify(backup));
   eq(JSON.stringify(inspected.data), JSON.stringify(a.db()), 'Respaldo íntegro del historial largo');
+  const recovery = await harness(); recovery.api.setUser('admin');
+  await recovery.api.restoreBackup(JSON.stringify(backup));
+  eq(JSON.stringify(recovery.api.db()), JSON.stringify(a.db()), 'Restauración íntegra en una sesión vacía');
   return { seed: 20261023, from: days[0], to: days.at(-1), days: days.length, months: months.size, shifts: shifts.length, sales: sales.length, purchases: events.filter(e => e.type === 'purchase').length, expensesIncludingPayroll: events.filter(e => e.type === 'expense').length, payroll: a.db().payroll.length, refunds: refundCounts, reports: reportCount, totalsCents: Object.fromEntries(Object.entries(expectedReport({ period: 'global', user: 'all' })).map(([k, v]) => [k, v.toString()])), differenceCents: 0 };
 }
 (async () => {
-  const edge = await boundaries(), long = await history();
+  const edge = await boundaries(), long = process.argv.includes('--boundaries-only') ? null : await history();
   const result = { passed: true, elapsedSeconds: Math.round((Date.now() - startedAt) / 1000), assertions, boundaries: edge, history: long };
   fs.mkdirSync('.artifacts/test-results', { recursive: true });
-  fs.writeFileSync('.artifacts/test-results/financial-audit.json', JSON.stringify(result, null, 2));
+  fs.writeFileSync('.artifacts/test-results/' + (long ? 'financial-audit.json' : 'financial-boundaries.json'), JSON.stringify(result, null, 2));
   console.log(JSON.stringify(result));
 })().catch(error => { console.error(error); process.exit(1); });

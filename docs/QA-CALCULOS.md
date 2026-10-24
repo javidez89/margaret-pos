@@ -34,7 +34,7 @@ Se reprodujo una venta de precio −5 que la versión anterior aceptaba y descon
 
 Las escrituras de negocio verifican almacenamiento actualizado y usan el mismo bloqueo entre pestañas cuando Web Locks está disponible. Un fallo de guardado restaura la memoria y no conserva el movimiento ni un Hash huérfano. Las pruebas anteriores cubren dos vendedores simultáneos, cambios de aprobación durante el cobro y duplicación de reembolso.
 
-Límites del demo: cantidades por operación hasta 1.000.000 de presentaciones; importes individuales de ficha/compra/gasto/nómina hasta 1.000.000.000 COP; total de compra o venta hasta 1.000.000.000.000 COP; stock por referencia hasta 1.000.000.000 de unidades; base y conteo de caja hasta 100.000.000 COP. Los acumulados que excedan el rango seguro de centavos se rechazan. Estos topes no sustituyen las restricciones del futuro backend.
+Límites del demo: cantidades por operación hasta 1.000.000 de presentaciones; importes individuales de ficha/compra/gasto/nómina hasta 1.000.000.000 COP; total de compra o venta hasta 1.000.000.000.000 COP; stock por referencia hasta 1.000.000.000 de unidades; base y conteo de caja hasta 100.000.000 COP. El valor de inventario y los acumulados se limitan a 10.000.000.000.000 COP para conservar centavos al guardar y leer números. Estos topes no sustituyen las restricciones del futuro backend.
 
 ## Alcance pendiente
 
