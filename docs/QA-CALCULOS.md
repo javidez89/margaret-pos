@@ -34,7 +34,40 @@ Se reprodujo una venta de precio −5 que la versión anterior aceptaba y descon
 
 Las escrituras de negocio verifican almacenamiento actualizado y usan el mismo bloqueo entre pestañas cuando Web Locks está disponible. Un fallo de guardado restaura la memoria y no conserva el movimiento ni un Hash huérfano. Las pruebas anteriores cubren dos vendedores simultáneos, cambios de aprobación durante el cobro y duplicación de reembolso.
 
+La salida de stock se aplica después de terminar el voucher. Se ensaya una edición guardada en la misma pestaña mientras se genera el comprobante: la venta se cancela, las existencias permanecen intactas, la edición se conserva y memoria/almacenamiento coinciden. Una copia del historial largo se verifica y restaura completa en otra sesión vacía.
+
 Límites del demo: cantidades por operación hasta 1.000.000 de presentaciones; importes individuales de ficha/compra/gasto/nómina hasta 1.000.000.000 COP; total de compra o venta hasta 1.000.000.000.000 COP; stock por referencia hasta 1.000.000.000 de unidades; base y conteo de caja hasta 100.000.000 COP. El valor de inventario y los acumulados se limitan a 10.000.000.000.000 COP para conservar centavos al guardar y leer números. Estos topes no sustituyen las restricciones del futuro backend.
+
+## Resultados del escenario reproducible
+
+El libro de control de la semilla indicada cuadra sin diferencia de centavos en inventario, costo, caja y reportes:
+
+| Cobertura | Cantidad |
+| --- | ---: |
+| Días / meses / turnos cerrados | 400 / 14 / 800 |
+| Ventas del historial | 1.600 |
+| Compras | 75 |
+| Gastos, incluidos pagos de nómina | 826 |
+| Pagos de nómina incluidos en esos gastos | 26 |
+| Devoluciones de todas las unidades restantes / parciales | 47 / 58 |
+| Devoluciones dañadas sin reintegro | 21 |
+| Devoluciones de meses anteriores | 17 |
+| Reportes comparados por periodo y usuario | 2.215 |
+
+Los casos de frontera se ejecutan aparte e incluyen otras 30 devoluciones unitarias de una paca y una venta adicional para comprobar el día colombiano cerca de medianoche UTC. No se suman a las 1.600 ventas del historial.
+
+| Total del historial (COP) | Valor |
+| --- | ---: |
+| Ventas brutas | 159.220.698,82 |
+| Reembolsos | 5.929.420,97 |
+| Ventas netas | 153.291.277,85 |
+| Costo vendido neto de reintegros | 89.708.480,16 |
+| Ganancia bruta | 63.582.797,69 |
+| Gastos, incluida nómina | 23.168.423,47 |
+| Resultado después de gastos | 40.414.374,22 |
+| Inversión en compras | 108.103.586,58 |
+
+El JSON de cada ejecución identifica versión, SHA-256 de la plantilla, duración, número de comprobaciones y totales en centavos para contrastar esta evidencia. La suite completa usa más de 44.000 comparaciones y conserva los datos sintéticos en almacenamiento de prueba.
 
 ## Alcance pendiente
 

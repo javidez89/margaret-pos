@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { createHash } = require('node:crypto');
 const harness = require('./helpers/financial-harness.cjs');
 
 let assertions = 0;
@@ -129,6 +130,22 @@ async function boundaries() {
   eq(a.db().products[2].costPending, true, 'Ficha recuperada no presenta costo cero como conocido');
   a.setFilter({ period: 'global', user: 'all' }); eq(a.reportMetrics(a.reportData()).missing, 2, 'Reporte marca venta y reintegro sin costo');
   eq(JSON.stringify((await a.inspectBackup(JSON.stringify(await a.makeBackup()))).data), JSON.stringify(a.db()), 'Respaldo preserva costos desconocidos');
+  // A same-tab form edit while crypto is pending must never persist half a sale or be lost on rollback.
+  const concurrent = await harness(), c = concurrent.api; setup(concurrent); await open(c, '2024-01-01');
+  c.setUser('admin'); await c.purchase({ ...purchase, requestId: 'concurrent-stock' });
+  let release, started;
+  const ready = new Promise(resolve => { started = resolve; }), gate = new Promise(resolve => { release = resolve; });
+  c.gateBeforeSeal(async () => { started(); await gate; });
+  c.setUser('vendedor1');
+  const pending = c.registerShiftSale({ shiftId: 1, cart: { '1:unit': 1 }, method: 'Transferencia' });
+  await ready; eq(c.db().products[0].stock, 30, 'No descontar existencias antes de terminar el voucher');
+  c.db().products[0].price = 999; c.persist(); release();
+  await assert.rejects(() => pending); assertions++;
+  eq(c.db().products[0].stock, 30, 'Venta cancelada no deja salida de inventario');
+  eq(c.db().products[0].price, 999, 'Edición concurrente conservada en memoria');
+  eq(c.db().sales.length, 0, 'Venta cancelada no deja documento');
+  eq(Object.keys(c.db().voucherRegistry).length, 0, 'Venta cancelada no deja Hash huérfano');
+  eq(JSON.stringify(c.db()), concurrent.stored(), 'Memoria y almacenamiento sincronizados tras conflicto');
   return { cases: assertions, partialRefunds: 30 };
 }
 
@@ -272,7 +289,7 @@ async function history() {
 }
 (async () => {
   const edge = await boundaries(), long = process.argv.includes('--boundaries-only') ? null : await history();
-  const result = { passed: true, elapsedSeconds: Math.round((Date.now() - startedAt) / 1000), assertions, boundaries: edge, history: long };
+  const result = { passed: true, version: require('../package.json').version, sourceSha256: createHash('sha256').update(fs.readFileSync('src/index.template.html')).digest('hex'), elapsedSeconds: Math.round((Date.now() - startedAt) / 1000), assertions, boundaries: edge, history: long };
   fs.mkdirSync('.artifacts/test-results', { recursive: true });
   fs.writeFileSync('.artifacts/test-results/' + (long ? 'financial-audit.json' : 'financial-boundaries.json'), JSON.stringify(result, null, 2));
   console.log(JSON.stringify(result));

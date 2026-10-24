@@ -31,7 +31,8 @@ module.exports = async function harness() {
     saveShiftConfiguration,openApprovedShift,closeCurrentShift,reviewShiftClosure,programNextShift,
     reportData,reportMetrics,reportRange,setFilter:f=>reportFilter=f,captureVoucher,sealVoucher,verifyVoucherCode,
     purchase:input=>registerPurchase(input),expense:input=>registerExpense(input),payroll:input=>registerPayroll(input),
-    makeBackup,inspectBackup,restoreBackup
+    makeBackup,inspectBackup,restoreBackup,
+    gateBeforeSeal:wait=>{const original=sealVoucher;sealVoucher=async(...args)=>{await wait();return original(...args);};}
   };})();`);
   await vm.runInContext(program, context);
   const api = context.api;
