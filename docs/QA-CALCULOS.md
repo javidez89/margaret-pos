@@ -36,6 +36,8 @@ Las escrituras de negocio verifican almacenamiento actualizado y usan el mismo b
 
 La salida de stock se aplica después de terminar el voucher. Se ensaya una edición guardada en la misma pestaña mientras se genera el comprobante: la venta se cancela, las existencias permanecen intactas, la edición se conserva y memoria/almacenamiento coinciden. Una copia del historial largo se verifica y restaura completa en otra sesión vacía.
 
+Al programar un turno se consideran también los identificadores conservados en ventas, gastos y devoluciones de historiales sin cierre archivado, para no mezclar movimientos de turnos distintos. Los reportes redondean los costos anteriores al centavo por movimiento; no modifican los importes originales de esos documentos.
+
 Límites del demo: cantidades por operación hasta 1.000.000 de presentaciones; importes individuales de ficha/compra/gasto/nómina hasta 1.000.000.000 COP; total de compra o venta hasta 1.000.000.000.000 COP; stock por referencia hasta 1.000.000.000 de unidades; base y conteo de caja hasta 100.000.000 COP. El valor de inventario y los acumulados se limitan a 10.000.000.000.000 COP para conservar centavos al guardar y leer números. Estos topes no sustituyen las restricciones del futuro backend.
 
 ## Resultados del escenario reproducible

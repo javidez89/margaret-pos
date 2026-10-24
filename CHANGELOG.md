@@ -8,6 +8,7 @@ Este proyecto usa versiones MAJOR.MINOR.PATCH. Las versiones 0.x todavía son de
 - Validación de precios, cantidades, fechas, importes finitos, límites, saldo disponible e identificadores de operación; se rechaza la venta con precio negativo.
 - Movimientos monetarios a dos decimales, costo histórico por renglón y valoración de inventario conservada al vender y reintegrar mercancía. El último reintegro absorbe el residuo de centavos.
 - Compras, gastos, nómina, solicitudes de devolución y reembolsos usan el control de escritura compartido y revierten si falla el guardado. Nómina incorpora un solo gasto.
+- La numeración de turnos conserva los identificadores de movimientos históricos aunque no exista cierre archivado, evitando mezclar saldos de turnos distintos.
 - Los vouchers anteriores conservan su contenido y Hash; los nuevos vinculan también los importes y costos exactos. Importes fraccionarios visibles en pantalla y formularios.
 - Regresiones de errores, duplicados y recuperación; recorrido de compra, venta, gasto y devolución parcial en Chromium/Chrome de CI. Datos sintéticos aislados de Supabase y del navegador personal.
 

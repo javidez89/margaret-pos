@@ -146,6 +146,12 @@ async function boundaries() {
   eq(c.db().sales.length, 0, 'Venta cancelada no deja documento');
   eq(Object.keys(c.db().voucherRegistry).length, 0, 'Venta cancelada no deja Hash huérfano');
   eq(JSON.stringify(c.db()), concurrent.stored(), 'Memoria y almacenamiento sincronizados tras conflicto');
+  // Old compatible data may retain movements whose shift has no archived closure.
+  c.db().sales.push({ id: 1, shift: 9000, seller: 'vendedor1', total: 1, costTotal: 0, method: 'Transferencia', date: '2023-12-01', items: [] });
+  c.db().expenses.push({ id: 1, shift: 9001, source: 'Caja del turno', amount: 1, date: '2023-12-01', by: 'admin' }); c.persist();
+  await c.closeCurrentShift(1, c.expected(), 'QA historial sin cierre');
+  c.setUser('gerente'); await c.reviewShiftClosure(1, true); await c.programNextShift(1);
+  eq(c.db().shift.id, 9002, 'Turno nuevo no reutiliza identificadores de movimientos históricos');
   return { cases: assertions, partialRefunds: 30 };
 }
 
